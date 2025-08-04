@@ -30,3 +30,14 @@ export function isAuthenticated(req: AuthenticatedRequest, res: Response, next: 
     throw new Error("🚫 Un-Authorized 🚫");
   }
 }
+
+export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+  const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
+
+  const response = {
+    message: err.message || "Internal Server Error",
+    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+  };
+
+  res.status(statusCode).json(response);
+}

@@ -26,9 +26,15 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction)
     const { accessToken, refreshToken } = generateTokens(user);
     await addRefreshTokenToWhitelist({ refreshToken, userId: user.id });
 
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    });
+
     res.json({
       accessToken,
-      refreshToken,
     });
   } catch (err) {
     next(err);
@@ -58,10 +64,40 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
     const { accessToken, refreshToken } = generateTokens(existingUser);
     await addRefreshTokenToWhitelist({ refreshToken, userId: existingUser.id });
 
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    });
+
     res.json({
       accessToken,
-      refreshToken,
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/logout", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (refreshToken) {
+      const existingToken = await findRefreshToken(refreshToken);
+
+      if (existingToken) {
+        await deleteRefreshTokenById(existingToken.id);
+      }
+    }
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.json({ message: "Logged out successfully" });
   } catch (err) {
     next(err);
   }
@@ -69,7 +105,7 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
 
 router.post("/refreshToken", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { refreshToken } = req.body as { refreshToken?: string };
+    const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       res.status(400);
       throw new Error("Missing refresh token.");
@@ -100,9 +136,15 @@ router.post("/refreshToken", async (req: Request, res: Response, next: NextFunct
       userId: user.id,
     });
 
+    res.cookie("refreshToken", newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    });
+
     res.json({
       accessToken,
-      refreshToken: newRefreshToken,
     });
   } catch (err) {
     next(err);
