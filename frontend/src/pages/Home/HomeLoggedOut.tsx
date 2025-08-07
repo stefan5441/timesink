@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../components/styling/Button";
+import Button from "../../components/styling/Button";
 
-function Home() {
+function HomeLoggedOut() {
   const navigate = useNavigate();
 
   return (
@@ -15,4 +15,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeLoggedOut;

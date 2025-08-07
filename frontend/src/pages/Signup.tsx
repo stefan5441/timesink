@@ -1,13 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../components/styling/Button";
 import Input from "../components/styling/Input";
 import { register } from "../api/authServices";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/useAuth";
 
 function Signup() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
