@@ -1,27 +1,24 @@
 import { Route, Routes } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import RequireAuth from "./auth/RequreAuth";
+import NotFound from "./pages/NotFound";
+import ProtectedRoutes from "./auth/ProtectedRoutes";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route index element={<Home />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
 
-      <Route
-        path="/*"
-        element={
-          <RequireAuth>
-            <Routes>
-              <Route path="protectedroute" element={<ProtectedRoute />} />
-            </Routes>
-          </RequireAuth>
-        }
-      />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="protected" element={<ProtectedRoute />} />
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

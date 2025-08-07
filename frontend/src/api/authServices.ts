@@ -1,4 +1,4 @@
-import { client } from "./axiosClient";
+import { client } from "../auth/axiosClient";
 
 type AuthCredentials = {
   email: string;
