@@ -74,7 +74,6 @@ class AxiosInterceptor {
           } catch (refreshError) {
             this.refreshSubscribers = [];
             this.setAccessToken("");
-            // window.location.href = "/"; <- goofy
             return Promise.reject(refreshError);
           } finally {
             this.isRefreshing = false;

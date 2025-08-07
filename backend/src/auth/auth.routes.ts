@@ -5,6 +5,7 @@ import { addRefreshTokenToWhitelist, deleteRefreshTokenById, findRefreshToken, r
 import { findUserByEmail, createUserByEmailAndPassword, findUserById } from "../user/user.services";
 import { loginSchema, registerSchema } from "../utils/yup";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -148,6 +149,33 @@ router.post("/refreshToken", async (req: Request, res: Response, next: NextFunct
     });
   } catch (err) {
     next(err);
+  }
+});
+
+router.get("/me", async (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader?.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as { userId: string };
+
+    const user = await findUserById(payload.userId);
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    res.json({
+      id: user.id,
+      email: user.email,
+    });
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 });
 
