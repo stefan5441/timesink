@@ -1,6 +1,7 @@
 import express from "express";
 import { PrismaClient } from "../generated/prisma";
 import authRoutes from "./auth/auth.routes";
+import activityRoutes from "./activity/activity.routes";
 import { errorHandler } from "./middleware";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/auth", authRoutes);
+app.use("/activity", activityRoutes);
 app.use(errorHandler);
 
 async function main() {

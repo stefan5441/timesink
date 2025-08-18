@@ -15,3 +15,35 @@ Content-Type: application/json
   "email": "testuser@example.com",
   "password": "supersecurepassword"
 }
+
+### Create a new activity
+POST http://localhost:3000/activity/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTE2NzNmMy1iZTQwLTRmNTMtYTYzMC0xNjg0MDgwNWZmMjAiLCJpYXQiOjE3NTU1MTc5MDgsImV4cCI6MTc1NTUxODIwOH0.ntY9eQhJzNoECR-vWFEa_rcNjqdhLSUmVOgYm55zCXg
+
+{
+  "name": "Morning Jack",
+  "color": "BLUE"
+}
+
+### Get all activities for the logged-in user
+GET http://localhost:3000/activity/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTE2NzNmMy1iZTQwLTRmNTMtYTYzMC0xNjg0MDgwNWZmMjAiLCJpYXQiOjE3NTU1MTc5MDgsImV4cCI6MTc1NTUxODIwOH0.ntY9eQhJzNoECR-vWFEa_rcNjqdhLSUmVOgYm55zCXg
+
+### Get a single activity by ID
+GET http://localhost:3000/activity/a5f1551f-72b9-4794-b1bd-88e67d0cd15d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTE2NzNmMy1iZTQwLTRmNTMtYTYzMC0xNjg0MDgwNWZmMjAiLCJpYXQiOjE3NTU1MTc5MDgsImV4cCI6MTc1NTUxODIwOH0.ntY9eQhJzNoECR-vWFEa_rcNjqdhLSUmVOgYm55zCXg
+
+### Update an activity
+PUT http://localhost:3000/activity/a5f1551f-72b9-4794-b1bd-88e67d0cd15d
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTE2NzNmMy1iZTQwLTRmNTMtYTYzMC0xNjg0MDgwNWZmMjAiLCJpYXQiOjE3NTU1MTc5MDgsImV4cCI6MTc1NTUxODIwOH0.ntY9eQhJzNoECR-vWFEa_rcNjqdhLSUmVOgYm55zCXg
+
+{
+  "name": "Evening Run",
+  "color": "BLUE"
+}
+
+### Delete an activity
+DELETE http://localhost:3000/activity/a5f1551f-72b9-4794-b1bd-88e67d0cd15d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTE2NzNmMy1iZTQwLTRmNTMtYTYzMC0xNjg0MDgwNWZmMjAiLCJpYXQiOjE3NTU1MTgzMzQsImV4cCI6MTc1NTUxODYzNH0.4OCI73GzzBUqmbrl372ZPV4Yvc5uTXTVnjuOBP8mSPE

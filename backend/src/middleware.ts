@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 interface AuthenticatedRequest extends Request {
   payload?: string | JwtPayload;
+  userId?: string;
 }
 
 export function isAuthenticated(req: AuthenticatedRequest, res: Response, next: NextFunction) {
@@ -19,8 +20,15 @@ export function isAuthenticated(req: AuthenticatedRequest, res: Response, next: 
     if (!secret) {
       throw new Error("JWT_ACCESS_SECRET is not defined");
     }
-    const payload = jwt.verify(token, secret);
+    const payload = jwt.verify(token, secret) as JwtPayload;
     req.payload = payload;
+
+    if (typeof payload === "object" && payload.userId) {
+      req.userId = payload.userId;
+    } else {
+      throw new Error("UserId not found in token");
+    }
+
     next();
   } catch (err: any) {
     res.status(401);

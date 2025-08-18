@@ -9,21 +9,72 @@ datasource db {
 }
 
 model User {
-  id            String         @id @unique @default(uuid())
-  email         String         @unique
-  password      String
-  refreshTokens RefreshToken[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id              String         @id @unique @default(uuid())
+  email           String         @unique
+  password        String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  refreshTokens   RefreshToken[]
+  activities      Activity[]
+  activityRecords ActivityRecord[]
 }
 
 model RefreshToken {
   id          String   @id @unique @default(uuid())
   hashedToken String   @unique
-  userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   revoked     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   expireAt    DateTime
+
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Activity {
+  id              String  @id @unique @default(uuid())
+  name            String
+  color           Color
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  activityRecords ActivityRecord[]
+  
+  userId          String
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+}
+
+model ActivityRecord {
+  id              String    @id @unique @default(uuid())
+  lengthInSeconds Int
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  activityId      String
+  activity        Activity  @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Color {
+  RED
+  ORANGE
+  AMBER
+  YELLOW
+  LIME
+  GREEN
+  EMERALD
+  TEAL
+  CYAN
+  SKY
+  BLUE
+  INDIGO
+  VIOLET
+  PURPLE
+  FUCHSIA
+  PINK
+  ROSE
 }
