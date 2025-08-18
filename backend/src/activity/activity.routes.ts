@@ -1,6 +1,6 @@
 // routes/activity.routes.ts
-import { isAuthenticated } from "../middleware";
-import express, { Request, Response, NextFunction } from "express";
+import { AuthenticatedRequest, isAuthenticated } from "../middleware";
+import express, { Response, NextFunction } from "express";
 import {
   createActivity,
   getActivitiesByUser,
@@ -11,10 +11,10 @@ import {
 
 const router = express.Router();
 
-router.post("/", isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+router.post("/", isAuthenticated, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
     const { name, color } = req.body;
-    const userId = (req as any).userId;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -27,9 +27,9 @@ router.post("/", isAuthenticated, async (req: Request, res: Response, next: Next
   }
 });
 
-router.get("/", isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", isAuthenticated, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const userId = (req as any).userId;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -42,9 +42,14 @@ router.get("/", isAuthenticated, async (req: Request, res: Response, next: NextF
   }
 });
 
-router.get("/:id", isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:id", isAuthenticated, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const userId = (req as any).userId;
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const activity = await getActivityById(req.params.id, userId);
 
     if (!activity) {
@@ -57,10 +62,14 @@ router.get("/:id", isAuthenticated, async (req: Request, res: Response, next: Ne
   }
 });
 
-router.put("/:id", isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+router.put("/:id", isAuthenticated, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const userId = (req as any).userId;
+    const userId = req.userId;
     const { name, color } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
     const activity = await updateActivity({ id: req.params.id, name, color }, userId);
     res.json(activity);
@@ -69,9 +78,13 @@ router.put("/:id", isAuthenticated, async (req: Request, res: Response, next: Ne
   }
 });
 
-router.delete("/:id", isAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:id", isAuthenticated, async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
-    const userId = (req as any).userId;
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
     await deleteActivity(req.params.id, userId);
     res.json({ message: "Activity deleted successfully" });
