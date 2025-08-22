@@ -19,3 +19,8 @@
 - See history of activities
 - See accumulated time of each activity somehow
 - See leetcode style heatmap with activities
+
+-> Idea
+Have categories for expertise level depending on hours spent on a hobby
+100-200 hours -> Programmer
+500+ hours -> Programming God
