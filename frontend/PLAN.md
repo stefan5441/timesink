@@ -24,3 +24,5 @@
 Have categories for expertise level depending on hours spent on a hobby
 100-200 hours -> Programmer
 500+ hours -> Programming God
+
+-> Comitting from manjaro test
