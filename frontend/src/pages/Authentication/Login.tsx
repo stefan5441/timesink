@@ -2,12 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../components/styling/Button";
-import Input from "../components/styling/Input";
-import { login } from "../api/authServices";
-import { useAuth } from "../auth/useAuth";
+import Button from "../../components/styling/Button";
+import Input from "../../components/styling/Input";
+import { login } from "../../api/authServices";
+import { useAuth } from "../../auth/useAuth";
 
-function Login() {
+export const Login = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
@@ -73,6 +73,4 @@ function Login() {
       </form>
     </div>
   );
-}
-
-export default Login;
+};

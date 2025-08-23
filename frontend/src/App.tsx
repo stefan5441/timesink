@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import NotFound from "./pages/NotFound";
+import { Home } from "./pages/Home/Home";
+import { NotFound } from "./pages/Others/NotFound";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import { Login } from "./pages/Authentication/Login";
+import { Signup } from "./pages/Authentication/Signup";
+import { ProtectedRoute } from "./pages/Others/ProtectedRoute";
 
 function App() {
   return (
