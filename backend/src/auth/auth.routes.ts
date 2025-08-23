@@ -12,7 +12,6 @@ const router = express.Router();
 router.post("/register", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = await registerSchema.validate(req.body, {
-      abortEarly: false,
       stripUnknown: true,
     });
 
@@ -45,7 +44,6 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction)
 router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = await loginSchema.validate(req.body, {
-      abortEarly: false,
       stripUnknown: true,
     });
 

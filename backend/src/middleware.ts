@@ -42,6 +42,30 @@ export function isAuthenticated(req: AuthenticatedRequest, res: Response, next: 
 export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
   const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
 
+  if (err.name === "ValidationError" && err.errors) {
+    return res.status(400).json({
+      message: err.errors[0], // only send the first error
+    });
+  }
+
+  if (err.code && err.clientVersion) {
+    return res.status(500).json({
+      message: "Database error. Please try again later.",
+    });
+  }
+
+  if (err.name === "TokenExpiredError") {
+    return res.status(401).json({
+      message: "Session expired. Please log in again.",
+    });
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    return res.status(401).json({
+      message: "Invalid token.",
+    });
+  }
+
   const response = {
     message: err.message || "Internal Server Error",
     ...(process.env.NODE_ENV === "development" && { stack: err.stack }),

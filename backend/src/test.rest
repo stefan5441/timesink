@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "email": "testuser@example.com",
-  "password": "supersecurepassword"
+  "email": "stefan.cambov2000@gmail.com",
+  "password": "Gamemaster5441."
 }
 
 ### Login with an existing user
