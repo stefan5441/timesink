@@ -3,10 +3,11 @@ import { client } from "../auth/axiosClient";
 type AuthCredentials = {
   email: string;
   password: string;
+  username?: string;
 };
 
-export async function register({ email, password }: AuthCredentials) {
-  const res = await client.post("auth/register", { email, password });
+export async function register({ email, password, username }: AuthCredentials) {
+  const res = await client.post("auth/register", { email, password, username });
 
   const accessToken = res.data.accessToken;
   if (accessToken) {

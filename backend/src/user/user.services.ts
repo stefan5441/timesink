@@ -8,12 +8,17 @@ export async function findUserByEmail(email: string): Promise<User | null> {
   });
 }
 
-export async function createUserByEmailAndPassword(user: { email: string; password: string }): Promise<User> {
+export async function createUserByEmailAndPassword(user: {
+  email: string;
+  password: string;
+  username: string;
+}): Promise<User> {
   const hashedPassword = await bcrypt.hash(user.password, 12);
   return prisma.user.create({
     data: {
       email: user.email,
       password: hashedPassword,
+      username: user.username,
     },
   });
 }

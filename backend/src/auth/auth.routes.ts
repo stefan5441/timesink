@@ -1,4 +1,3 @@
-// routes/auth.routes.ts
 import express, { Request, Response, NextFunction } from "express";
 import { generateTokens } from "../utils/jwt";
 import { addRefreshTokenToWhitelist, deleteRefreshTokenById, findRefreshToken, revokeTokens } from "./auth.services";
@@ -11,7 +10,7 @@ const router = express.Router();
 
 router.post("/register", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = await registerSchema.validate(req.body, {
+    const { email, password, username } = await registerSchema.validate(req.body, {
       stripUnknown: true,
     });
 
@@ -22,7 +21,7 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction)
       throw new Error("Email already in use.");
     }
 
-    const user = await createUserByEmailAndPassword({ email, password });
+    const user = await createUserByEmailAndPassword({ email, password, username });
     const { accessToken, refreshToken } = generateTokens(user);
     await addRefreshTokenToWhitelist({ refreshToken, userId: user.id });
 

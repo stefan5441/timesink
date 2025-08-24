@@ -12,8 +12,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "testuser@example.com",
-  "password": "supersecurepassword"
+  "email": "stefan.cambov2000@gmail.com",
+  "password": "Gamemaster5441."
 }
 
 ### Create a new activity

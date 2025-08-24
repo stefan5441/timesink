@@ -2,6 +2,11 @@ import * as yup from "yup";
 
 export const registerSchema = yup.object({
   email: yup.string().email().trim().required("Email is required"),
+  username: yup
+    .string()
+    .trim()
+    .required("Username is required")
+    .matches(/^[a-zA-Z0-9]+$/, "Username can only contain letters and numbers"),
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters")

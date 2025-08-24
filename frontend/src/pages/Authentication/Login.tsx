@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 import Button from "../../components/styling/Button";
 import Input from "../../components/styling/Input";
@@ -11,34 +12,34 @@ export const Login = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: (data: { email: string; password: string }) => login(data),
+    onSuccess: () => {
+      navigate("/");
+    },
+    onError: (err) => {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || "Something went wrong");
+      } else {
+        setError("Unexpected error");
+      }
+    },
+  });
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/", { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
-
-    try {
-      await login({ email, password });
-      navigate("/");
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.message || "Something went wrong");
-      } else {
-        setError("Unexpected error");
-      }
-    } finally {
-      setLoading(false);
-    }
+    mutation.mutate({ email, password });
   };
 
   return (
@@ -67,8 +68,8 @@ export const Login = () => {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <Button type="submit" className="mt-4" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+        <Button type="submit" className="mt-4" disabled={mutation.isPending}>
+          {mutation.isPending ? "Logging in..." : "Login"}
         </Button>
       </form>
     </div>
