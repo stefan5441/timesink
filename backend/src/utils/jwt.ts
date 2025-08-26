@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import type { User } from "../../generated/prisma";
+import { User } from "@prisma/client";
 
 export function generateAccessToken(user: User) {
   const secret = process.env.JWT_ACCESS_SECRET;

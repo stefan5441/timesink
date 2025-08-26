@@ -1,0 +1,12 @@
+{
+  "name": "@timesink/prisma",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "prisma": "^6.13.0",
+    "@prisma/client": "^6.13.0"
+  }
+}

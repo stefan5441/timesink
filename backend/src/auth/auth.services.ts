@@ -1,7 +1,7 @@
 // services/refreshToken.service.ts
 import prisma from "../utils/prisma";
 import { hashToken } from "../utils/hash";
-import type { RefreshToken } from "../../generated/prisma";
+import { RefreshToken } from "@prisma/client";
 
 interface AddRefreshTokenInput {
   refreshToken: string;

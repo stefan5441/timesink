@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../utils/prisma";
-import type { User } from "../../generated/prisma";
+import { User } from "@prisma/client";
 
 export async function findUserByEmail(email: string): Promise<User | null> {
   return prisma.user.findUnique({

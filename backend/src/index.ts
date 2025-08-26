@@ -1,11 +1,11 @@
 import express from "express";
-import { PrismaClient } from "../generated/prisma";
 import authRoutes from "./auth/auth.routes";
 import activityRoutes from "./activity/activity.routes";
 import userRoutes from "./user/user.routes";
 import { errorHandler } from "./middleware";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const app = express();

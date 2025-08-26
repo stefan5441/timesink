@@ -1,4 +1,4 @@
-import { ActivityRecord } from "../../generated/prisma";
+import { ActivityRecord } from "@prisma/client";
 import prisma from "../utils/prisma";
 
 type CreateActivityRecordPayload = {
