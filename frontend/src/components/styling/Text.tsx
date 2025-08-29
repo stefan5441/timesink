@@ -1,8 +1,9 @@
 export type TextProps = {
   content: string;
-  as?: "p" | "small"; // user picks the element
+  as?: "p" | "small";
   size?: "small" | "medium" | "large";
   bold?: boolean;
+  className?: string;
 };
 
 const textSizeClass = {
@@ -11,6 +12,6 @@ const textSizeClass = {
   large: "text-lg",
 };
 
-export const Text = ({ content, as: Tag = "p", size = "medium", bold }: TextProps) => {
-  return <Tag className={`${textSizeClass[size]} ${bold ? "font-bold" : ""}`}>{content}</Tag>;
+export const Text = ({ content, className, as: Tag = "p", size = "medium", bold }: TextProps) => {
+  return <Tag className={`${className} ${textSizeClass[size]} ${bold ? "font-bold" : ""}`}>{content}</Tag>;
 };

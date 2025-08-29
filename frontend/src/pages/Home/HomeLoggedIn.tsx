@@ -18,14 +18,24 @@ export const HomeLoggedIn = () => {
 
   const formattedDate = `${weekday}, ${dayMonth}`;
   return (
-    <Container size="medium">
+    <Container size="medium" className="flex flex-col gap-20">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <Header content={`Hi, ${userData?.username}`} size="medium" bold />
           <Text content={formattedDate} size="small" />
         </div>
+
         <Button size="medium" square>
           <CgProfile className="text-zinc-800" />
+        </Button>
+      </div>
+
+      <div className="flex justify-center gap-2">
+        <Button size="medium">
+          <Text content="Add an activity" size="small" className="text-zinc-800" />
+        </Button>
+        <Button size="medium">
+          <Text content="Record an activity" size="small" className="text-zinc-800" />
         </Button>
       </div>
     </Container>
