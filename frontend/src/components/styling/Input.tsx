@@ -4,7 +4,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ className = "", ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ className = "", ...props }, ref) => {
   return (
     <input
       ref={ref}
@@ -13,5 +13,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className = "", ...pro
     />
   );
 });
-
-export default Input;

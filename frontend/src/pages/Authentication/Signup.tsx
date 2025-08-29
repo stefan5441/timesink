@@ -5,8 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 
 import { useAuth } from "../../auth/useAuth";
 import { register } from "../../api/authServices";
-import Input from "../../components/styling/Input";
-import Button from "../../components/styling/Button";
+import { Button } from "../../components/styling/Button";
+import { Input } from "../../components/styling/Input";
 
 export const Signup = () => {
   const navigate = useNavigate();
