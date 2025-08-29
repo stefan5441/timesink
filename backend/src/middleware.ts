@@ -7,6 +7,10 @@ export interface AuthenticatedRequest extends Request {
 }
 
 export function isAuthenticated(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   const authorization = req.headers.authorization;
 
   if (!authorization) {

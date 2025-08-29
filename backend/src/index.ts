@@ -15,10 +15,12 @@ const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: `http://localhost:5441`,
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
