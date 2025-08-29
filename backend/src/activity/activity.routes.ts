@@ -86,8 +86,8 @@ router.delete("/:id", isAuthenticated, async (req: AuthenticatedRequest, res: Re
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    await deleteActivity(req.params.id, userId);
-    res.json({ message: "Activity deleted successfully" });
+    const activity = await deleteActivity(req.params.id, userId);
+    res.json(activity);
   } catch (err) {
     next(err);
   }

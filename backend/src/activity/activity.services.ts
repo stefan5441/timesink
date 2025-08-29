@@ -59,12 +59,16 @@ export async function updateActivity({ id, name, color }: UpdateActivityPayload,
   return getActivityById(id, userId) as Promise<Activity>;
 }
 
-export async function deleteActivity(id: string, userId: string): Promise<void> {
-  const result = await prisma.activity.deleteMany({
+export async function deleteActivity(id: string, userId: string): Promise<Activity> {
+  const activity = await prisma.activity.findFirst({
     where: { id, userId },
   });
 
-  if (result.count === 0) {
+  if (!activity) {
     throw new Error("Activity not found or no permission to delete");
   }
+
+  return prisma.activity.delete({
+    where: { id },
+  });
 }
