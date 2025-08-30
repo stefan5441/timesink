@@ -34,3 +34,5 @@ router.get("/", isAuthenticated, async (req: AuthenticatedRequest, res: Response
     next(err);
   }
 });
+
+export default router;

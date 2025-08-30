@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./auth/auth.routes";
 import activityRoutes from "./activity/activity.routes";
+import activityRecordRoutes from "./activityRecord/activityRecord.routes";
 import userRoutes from "./user/user.routes";
 import { errorHandler } from "./middleware";
 import cors from "cors";
@@ -24,8 +25,9 @@ app.options(/(.*)/, cors(corsOptions));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
-app.use("/activity", activityRoutes);
 app.use("/user", userRoutes);
+app.use("/activity", activityRoutes);
+app.use("/activity-record", activityRecordRoutes);
 
 app.use(errorHandler);
 
