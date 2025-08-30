@@ -1,23 +1,31 @@
-import React, { type ButtonHTMLAttributes, type ReactNode } from "react";
+import React, { type ButtonHTMLAttributes } from "react";
+import type { IconType } from "react-icons";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode;
+  icon?: IconType;
+  content?: string;
   size?: "small" | "medium" | "large";
-  square?: boolean;
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, className = "", size = "medium", square, ...props }, ref) => {
+  ({ className = "", size = "large", icon: Icon, content, ...props }, ref) => {
     let sizeClasses = "";
+    let iconSize = 16;
+
+    const isIconOnly = Icon && !content;
+
     switch (size) {
       case "small":
-        sizeClasses = "text-sm";
+        sizeClasses = isIconOnly ? "p-1" : "text-xs px-3 font-semibold";
+        iconSize = 14;
         break;
       case "medium":
-        sizeClasses = "text-lg";
+        sizeClasses = isIconOnly ? "p-1" : "text-sm px-3 font-semibold";
+        iconSize = 16;
         break;
       case "large":
-        sizeClasses = "text-xl";
+        sizeClasses = isIconOnly ? "p-1" : "text-lg px-5 font-medium";
+        iconSize = 20;
         break;
     }
 
@@ -25,11 +33,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={`${className} ${sizeClasses} ${
-          square ? "px-1" : "px-2"
-        } py-1 bg-sky-100 rounded-full hover:bg-sky-200`}
+          !isIconOnly && "pt-1 pb-1.5"
+        } rounded-full flex justify-center items-center gap-1 bg-sky-100 text-zinc-800 hover:bg-sky-200`}
         {...props}
       >
-        {children}
+        {Icon && <Icon size={iconSize} />}
+        {content && <span>{content}</span>}
       </button>
     );
   }

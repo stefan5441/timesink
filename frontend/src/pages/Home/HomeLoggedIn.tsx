@@ -25,18 +25,16 @@ export const HomeLoggedIn = () => {
           <Text content={formattedDate} size="small" />
         </div>
 
-        <Button size="medium" square>
+        {/* <Button size="medium" square>
           <CgProfile className="text-zinc-800" />
-        </Button>
+        </Button> */}
       </div>
 
       <div className="flex justify-center gap-2">
-        <Button size="medium">
-          <Text content="Add an activity" size="small" className="text-zinc-800" />
-        </Button>
-        <Button size="medium">
+        <Button icon={CgProfile} />
+        {/* <Button size="medium">
           <Text content="Record an activity" size="small" className="text-zinc-800" />
-        </Button>
+        </Button> */}
       </div>
     </Container>
   );
