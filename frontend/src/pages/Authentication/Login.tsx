@@ -68,9 +68,12 @@ export const Login = () => {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <Button type="submit" className="mt-4" disabled={mutation.isPending}>
-          {mutation.isPending ? "Logging in..." : "Login"}
-        </Button>
+        <Button
+          type="submit"
+          content={mutation.isPending ? "Logging in..." : "Login"}
+          className="mt-4"
+          disabled={mutation.isPending}
+        />
       </form>
     </div>
   );

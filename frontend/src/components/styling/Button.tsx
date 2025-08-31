@@ -8,7 +8,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className = "", size = "large", icon: Icon, content, ...props }, ref) => {
+  ({ className = "", size = "medium", icon: Icon, content, ...props }, ref) => {
     let sizeClasses = "";
     let iconSize = 16;
 

@@ -6,12 +6,12 @@ export type TextProps = {
   className?: string;
 };
 
-const textSizeClass = {
-  small: "text-xs",
-  medium: "text-base",
-  large: "text-lg",
-};
-
 export const Text = ({ content, className, as: Tag = "p", size = "medium", bold }: TextProps) => {
-  return <Tag className={`${className} ${textSizeClass[size]} ${bold ? "font-bold" : ""}`}>{content}</Tag>;
+  const textSizeClass = {
+    small: `text-xs ${bold ? "font-semibold" : ""}`,
+    medium: `text-sm ${bold ? "font-semibold" : ""}`,
+    large: `text-lg ${bold ? "font-bold" : ""}`,
+  };
+
+  return <Tag className={`${className} ${textSizeClass[size]}`}>{content}</Tag>;
 };
