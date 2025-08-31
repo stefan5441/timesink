@@ -1,12 +1,14 @@
-import { getMe } from "../../api/userServices";
-import { useQuery } from "@tanstack/react-query";
-import { Header } from "../../components/styling/Header";
-import { Text } from "../../components/styling/Text";
-import { Container } from "../../components/styling/Container";
-import { Button } from "../../components/styling/Button";
+import { FaPlus } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { useQuery } from "@tanstack/react-query";
+import { MdFiberManualRecord } from "react-icons/md";
+
+import { getMe } from "../../api/userServices";
+import { Text } from "../../components/styling/Text";
+import { Header } from "../../components/styling/Header";
+import { Button } from "../../components/styling/Button";
+import { Container } from "../../components/styling/Container";
 import { ActivityCard } from "../../components/styling/ActivityCard";
-import { FaPlay, FaPlus } from "react-icons/fa";
 
 export const HomeLoggedIn = () => {
   const { data: userData } = useQuery({
@@ -48,8 +50,8 @@ export const HomeLoggedIn = () => {
       </div>
 
       <div className="flex justify-center gap-2">
-        <Button icon={FaPlay} content="Record an activity" size="medium" />
-        <Button icon={FaPlus} content="Add new activity" size="medium" />
+        <Button icon={MdFiberManualRecord} content="Record activity" size="small" />
+        <Button icon={FaPlus} content="New activity" size="small" />
       </div>
     </Container>
   );
