@@ -24,7 +24,7 @@ function formatDuration(totalSeconds: number): string {
 
 export const ActivityCard = ({ activityName, activityColor, activityLengthInSeconds }: ActivityCardProps) => {
   return (
-    <div className="p-2 bg-slate-500 rounded inline-block flex-shrink-0">
+    <div className="p-2 bg-background border rounded inline-block flex-shrink-0">
       <div className="flex items-top h-20">
         <div className={`w-1.5 h-full rounded ${colorMap[activityColor]}`} />
 
