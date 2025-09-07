@@ -14,39 +14,45 @@ export const CreateActivityModal = () => {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[50vw] max-w-xl">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="leading-none font-medium">Create an activity</h4>
-            <p className="text-muted-foreground text-sm">Fill out the details below to create a new activity.</p>
+      <PopoverContent className="max-w-xl">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h4 className="leading-none font-medium text-sm">Create an activity</h4>
+            <p className="text-muted-foreground text-xs">Fill out the details below to create a new activity.</p>
           </div>
 
-          <div className="grid gap-4">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="activityName">Name</Label>
-              <Input
-                id="activityName"
-                placeholder="Competitive programming"
-                maxLength={50}
-                className="col-span-2 h-8"
-              />
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between">
+              <Label className="text-xs" htmlFor="activityName">
+                Name
+              </Label>
+              <Input className="h-7 text-xs w-50" id="activityName" placeholder="Leetcoding" maxLength={50} />
             </div>
 
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="activityColor">Color</Label>
+            <div className="flex justify-between">
+              <Label className="text-xs" htmlFor="activityColor">
+                Color
+              </Label>
               <Select>
-                <SelectTrigger className="col-span-2 h-8">
+                <SelectTrigger size="sm" className="w-50">
                   <SelectValue placeholder="Select a color" />
                 </SelectTrigger>
+
                 <SelectContent>
                   {Object.entries(colorMap).map(([colorName, colorClass]) => (
-                    <SelectItem key={colorName} value={colorName} className="flex items-center gap-2">
-                      <span className={`w-4 h-4 rounded-full ${colorClass}`}></span>
+                    <SelectItem key={colorName} value={colorName} className="flex py-1 text-xs">
+                      <span className={`w-3 h-3 rounded ${colorClass}`}></span>
                       {colorName}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="flex justify-end">
+              <Button className="w-20" size="sm" variant="default">
+                Add
+              </Button>
             </div>
           </div>
         </div>
