@@ -1,11 +1,29 @@
-import { Button } from "../ui/button";
+import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
+import { Button } from "../ui/button";
+import { Color } from "@prisma/client";
 import { colorMap } from "../ui/custom/utils";
+import { useMutation } from "@tanstack/react-query";
+import { createActivity } from "@/api/activityServices";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
 
-export const CreateActivityModal = () => {
+export const CreateActivityPopover = () => {
+  const [activityName, setActivityName] = useState<string>("");
+  const [activityColor, setActivityColor] = useState<Color | "">("");
+
+  const mutation = useMutation({
+    mutationFn: createActivity,
+  });
+
+  const handleButtonClick = () => {
+    if (!activityName || !activityColor) return;
+    mutation.mutate({ name: activityName, color: activityColor });
+    setActivityName("");
+    setActivityColor("");
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -26,18 +44,24 @@ export const CreateActivityModal = () => {
               <Label className="text-xs" htmlFor="activityName">
                 Name
               </Label>
-              <Input className="h-7 text-xs w-50" id="activityName" placeholder="Leetcoding" maxLength={50} />
+              <Input
+                className="h-7 text-xs w-50"
+                id="activityName"
+                placeholder="Leetcoding"
+                maxLength={50}
+                value={activityName}
+                onChange={(e) => setActivityName(e.target.value)}
+              />
             </div>
 
             <div className="flex justify-between">
               <Label className="text-xs" htmlFor="activityColor">
                 Color
               </Label>
-              <Select>
+              <Select value={activityColor} onValueChange={(value) => setActivityColor(value as Color)}>
                 <SelectTrigger size="sm" className="w-50">
                   <SelectValue placeholder="Select a color" />
                 </SelectTrigger>
-
                 <SelectContent>
                   {Object.entries(colorMap).map(([colorName, colorClass]) => (
                     <SelectItem key={colorName} value={colorName} className="flex py-1 text-xs">
@@ -50,7 +74,13 @@ export const CreateActivityModal = () => {
             </div>
 
             <div className="flex justify-end">
-              <Button className="w-20" size="sm" variant="default">
+              <Button
+                className="w-20"
+                size="sm"
+                variant="default"
+                onClick={handleButtonClick}
+                disabled={!activityName || !activityColor}
+              >
                 Add
               </Button>
             </div>

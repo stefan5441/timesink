@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDarkMode } from "@/hooks/useDarkMode";
 import { FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { ActivityCard } from "@/components/ui/custom/ActivityCard";
-import { CreateActivityModal } from "@/components/functional/CreateActivityModal";
+import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
 
 export const HomeLoggedIn = () => {
   const { data: userData } = useQuery({
@@ -51,7 +51,7 @@ export const HomeLoggedIn = () => {
         <Button variant="default" size="sm">
           Record an activity
         </Button>
-        <CreateActivityModal />
+        <CreateActivityPopover />
       </div>
     </div>
   );
