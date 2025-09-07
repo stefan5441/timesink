@@ -5,8 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 
 import { login } from "../../api/authServices";
 import { useAuth } from "../../auth/useAuth";
-import { Input } from "../../components/styling/Input";
-import { Button } from "../../components/styling/Button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ export const Login = () => {
     <div className="flex flex-col justify-center items-center gap-6 min-h-screen">
       <h1 className="text-7xl font-bold">Login</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 min-w-[300px]">
-        <label htmlFor="email">Email:</label>
+        <Label htmlFor="email">Email:</Label>
         <Input
           type="email"
           id="email"
@@ -56,7 +57,7 @@ export const Login = () => {
           required
         />
 
-        <label htmlFor="password">Password:</label>
+        <Label htmlFor="password">Password:</Label>
         <Input
           type="password"
           id="password"

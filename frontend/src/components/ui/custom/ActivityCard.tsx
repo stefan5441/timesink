@@ -1,5 +1,4 @@
 import type { Color } from "@prisma/client";
-import { Text } from "./Text";
 import { colorMap } from "./utils";
 
 type ActivityCardProps = {
@@ -29,8 +28,8 @@ export const ActivityCard = ({ activityName, activityColor, activityLengthInSeco
         <div className={`w-1.5 h-full rounded ${colorMap[activityColor]}`} />
 
         <div className="pl-2 pr-6">
-          <Text content={activityName} size="small" bold />
-          <Text content={formatDuration(activityLengthInSeconds)} size="small" />
+          <h4 className="text-sm font-semibold">{activityName}</h4>
+          <p className="text-xs">{formatDuration(activityLengthInSeconds)}</p>
         </div>
       </div>
     </div>

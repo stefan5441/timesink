@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 import { useAuth } from "../../auth/useAuth";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { register } from "../../api/authServices";
-import { Button } from "../../components/styling/Button";
-import { Input } from "../../components/styling/Input";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export const Signup = () => {
     <div className="flex flex-col justify-center items-center gap-6 min-h-screen">
       <h1 className="text-7xl font-bold">Sign up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 min-w-[300px]">
-        <label htmlFor="username">Username:</label>
+        <Label htmlFor="username">Username:</Label>
         <Input
           type="text"
           id="username"
@@ -60,7 +61,7 @@ export const Signup = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <label htmlFor="email">Email:</label>
+        <Label htmlFor="email">Email:</Label>
         <Input
           type="email"
           id="email"
@@ -69,7 +70,7 @@ export const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="password">Password:</label>
+        <Label htmlFor="password">Password:</Label>
         <Input
           type="password"
           id="password"
