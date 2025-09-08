@@ -9,3 +9,5 @@ Above the Recent activities thing do rotating sentences with the activities the 
 1. How about doing some {activityA} today?
 2. You haven't done {activityB} in a long time...
    ETC
+
+NEW: Put everything in a side panel, profile at the top, side panel for home, create and manage activities, recording a current activity, stats. At the footer put something funny and dark/light mode toggle, also easy to manage with routes

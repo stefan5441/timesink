@@ -5,6 +5,7 @@ import { useDarkMode } from "@/hooks/useDarkMode";
 import { FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { ActivityCard } from "@/components/ui/custom/ActivityCard";
 import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
+import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
 
 export const HomeLoggedIn = () => {
   const { data: userData } = useQuery({
@@ -48,9 +49,7 @@ export const HomeLoggedIn = () => {
       </div>
 
       <div className="flex justify-center gap-2">
-        <Button variant="default" size="sm">
-          Record an activity
-        </Button>
+        <RecordActivityPopover />
         <CreateActivityPopover />
       </div>
     </div>
