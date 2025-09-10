@@ -8,67 +8,47 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSubButton,
-  SidebarProvider,
-  SidebarSeparator,
   SidebarTrigger,
 } from "../ui/sidebar";
-import { useState } from "react";
 
 export const MainSidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const { isDark, toggleTheme } = useDarkMode();
 
   return (
-    <SidebarProvider open={isOpen} onOpenChange={setIsOpen}>
-      <SidebarTrigger className="fixed top-4 right-4 z-50" />
+    <Sidebar variant="floating" collapsible="icon" className="w-56">
+      <SidebarHeader className="flex justify-center py-4">
+        <SidebarMenuButton>
+          <User /> Profile
+        </SidebarMenuButton>
+      </SidebarHeader>
 
-      <Sidebar side="right" variant="sidebar" className="w-56">
-        <SidebarHeader className="flex justify-center py-4">
-          <SidebarMenuButton>
-            <User /> Profile
-          </SidebarMenuButton>
-        </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+              <House />
+              Home
+            </SidebarMenuButton>
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+              <Play />
+              Record an activity
+            </SidebarMenuButton>
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+              <Pencil /> Manage your activities
+            </SidebarMenuButton>
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+              <ChartNoAxesCombined /> See stats
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
 
-        <SidebarSeparator />
-
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <House />
-                  Home
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Play />
-                  Record an activity
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Pencil /> Manage your activities
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <ChartNoAxesCombined /> See stats
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
-        </SidebarContent>
-
-        <SidebarSeparator />
-
-        <SidebarFooter>
-          <SidebarMenuSubButton onClick={toggleTheme}>{isDark ? <Sun /> : <Moon />} Change mode</SidebarMenuSubButton>
-        </SidebarFooter>
-      </Sidebar>
-    </SidebarProvider>
+      <SidebarFooter>
+        <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={toggleTheme}>
+          {isDark ? <Sun /> : <Moon />} Change mode
+        </SidebarMenuButton>
+        <SidebarTrigger />
+      </SidebarFooter>
+    </Sidebar>
   );
 };
