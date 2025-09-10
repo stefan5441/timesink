@@ -6,7 +6,8 @@ import ProtectedRoutes from "./auth/ProtectedRoutes";
 import { Login } from "./pages/Authentication/Login";
 import { Signup } from "./pages/Authentication/Signup";
 import { ProtectedRoute } from "./pages/Others/ProtectedRoute";
-import { CurrentActivity } from "./pages/CurrentActivity/CurrentActivity";
+import { RecordActivity } from "./pages/RecordActivity/RecordActivity";
+import { ManageActivities } from "./pages/ManageActivities/ManageActivities";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
 
       <Route element={<ProtectedRoutes />}>
         <Route path="protected" element={<ProtectedRoute />} />
-        <Route path="current-activity" element={<CurrentActivity />} />
+        <Route path="manage-activities" element={<ManageActivities />} />
+        <Route path="record-activity" element={<RecordActivity />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
