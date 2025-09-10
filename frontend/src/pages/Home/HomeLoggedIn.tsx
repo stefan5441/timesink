@@ -1,11 +1,7 @@
 import { getMe } from "@/api/userServices";
-import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { useDarkMode } from "@/hooks/useDarkMode";
-import { FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { ActivityCard } from "@/components/ui/custom/ActivityCard";
-import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
-import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
+import { MainSidebar } from "@/components/functional/MainSidebar";
 
 export const HomeLoggedIn = () => {
   const { data: userData } = useQuery({
@@ -18,24 +14,12 @@ export const HomeLoggedIn = () => {
   const dayMonth = today.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
   const formattedDate = `${weekday}, ${dayMonth}`;
 
-  const { isDark, toggleTheme } = useDarkMode();
-
   return (
     <div className="px-8 py-6 flex flex-col justify-between min-h-screen">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold">{`Hi, ${userData?.username}`}</h1>
           <p className="text-xs">{formattedDate}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant="default" size="icon" className="rounded-full" onClick={toggleTheme}>
-            {isDark ? <FaSun /> : <FaMoon />}
-          </Button>
-
-          <Button variant="default" size="icon" className="rounded-full">
-            <FaUser />
-          </Button>
         </div>
       </div>
 
@@ -48,10 +32,7 @@ export const HomeLoggedIn = () => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-2">
-        <RecordActivityPopover />
-        <CreateActivityPopover />
-      </div>
+      <MainSidebar />
     </div>
   );
 };
