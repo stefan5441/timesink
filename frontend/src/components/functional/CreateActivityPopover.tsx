@@ -27,7 +27,7 @@ export const CreateActivityPopover = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" size="sm">
+        <Button variant="default" size="sm">
           New activity
         </Button>
       </PopoverTrigger>

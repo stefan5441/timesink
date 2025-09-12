@@ -6,5 +6,5 @@ interface MainContentContainerProps {
 }
 
 export const MainContentContainer = ({ children, className = "" }: MainContentContainerProps) => {
-  return <div className={`px-8 py-6 ${className}`}>{children}</div>;
+  return <div className={`px-8 py-6 w-full h-full ${className}`}>{children}</div>;
 };

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "@/hooks/useDarkMode";
-import { ChartNoAxesCombined, House, LogOut, Moon, Pencil, Play, Sun, User } from "lucide-react";
+import { ChartNoAxesCombined, Flame, House, LogOut, Moon, Sun, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -31,18 +31,9 @@ export const MainSidebar = () => {
               <House />
               Home
             </SidebarMenuButton>
-            <SidebarMenuButton
-              className="whitespace-nowrap overflow-hidden"
-              onClick={() => navigate("/record-activity")}
-            >
-              <Play />
-              Record activity
-            </SidebarMenuButton>
-            <SidebarMenuButton
-              className="whitespace-nowrap overflow-hidden"
-              onClick={() => navigate("/manage-activities")}
-            >
-              <Pencil /> Manage activities
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => navigate("/activities")}>
+              <Flame />
+              Activities
             </SidebarMenuButton>
             <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
               <ChartNoAxesCombined /> See stats

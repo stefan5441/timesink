@@ -10,9 +10,11 @@ export const LayoutWithSidebar = ({ children }: LayoutWithSidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <SidebarProvider open={isOpen} onOpenChange={setIsOpen}>
-      <MainSidebar />
-      <main className="min-h-screen">{children}</main>
-    </SidebarProvider>
+    <div className="flex h-screen">
+      <SidebarProvider open={isOpen} onOpenChange={setIsOpen}>
+        <MainSidebar />
+        <main className="flex-1 flex flex-col">{children}</main>
+      </SidebarProvider>
+    </div>
   );
 };
