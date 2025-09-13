@@ -9,6 +9,7 @@ import { useActivities, useDeleteActivity } from "@/api/activity/activityQueries
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
 import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
 import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
+import { EditActivityPopover } from "@/components/functional/EditActivityPopover";
 
 type ActivityTab = "record" | "manage";
 
@@ -51,9 +52,7 @@ export const Activities = () => {
                       <div className={`w-3 h-3 rounded mr-2 ${colorMap[a.color]}`}></div>
                       <span className="flex-1">{a.name}</span>
                       <div className="space-x-2">
-                        <Button size="sm" variant="secondary" className="!py-1">
-                          Edit
-                        </Button>
+                        <EditActivityPopover activityId={a.id} />
                         <Button
                           size="sm"
                           variant="destructive"

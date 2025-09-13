@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createActivity, deleteActivity, getActivities, getActivity } from "./activityServices";
+import { createActivity, deleteActivity, getActivities, getActivity, updateActivity } from "./activityServices";
 
 export const activityKeys = {
   all: ["activities"] as const,
@@ -27,6 +27,19 @@ export function useCreateActivity() {
     mutationFn: createActivity,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: activityKeys.all });
+    },
+  });
+}
+
+export function useUpdateActivity() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateActivity,
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: activityKeys.all });
+      if (variables.id) {
+        queryClient.invalidateQueries({ queryKey: activityKeys.detail(variables.id) });
+      }
     },
   });
 }
