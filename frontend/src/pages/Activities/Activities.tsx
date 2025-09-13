@@ -1,23 +1,39 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useTimer } from "@/contexts/timer/useTimer";
 import { Separator } from "@/components/ui/separator";
-import { colorMap } from "@/components/ui/custom/utils";
+import { Card, CardContent } from "@/components/ui/card";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EditActivityPopover } from "@/components/functional/EditActivityPopover";
 import { useActivities, useDeleteActivity } from "@/api/activity/activityQueries";
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
 import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
 import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
-import { EditActivityPopover } from "@/components/functional/EditActivityPopover";
+import { bgColorMap, borderColorMap, textColorMap } from "@/components/ui/custom/utils";
 
 type ActivityTab = "record" | "manage";
 
 export const Activities = () => {
   const [tab, setTab] = useState<ActivityTab>("record");
 
+  const { secondsElapsed, startTimer, activeActivityId } = useTimer();
+
   const { data: activitiesData } = useActivities();
   const deleteMutation = useDeleteActivity();
+
+  const activeActivity = activitiesData?.find((a) => a.id === activeActivityId);
+
+  const formatTime = (secs: number) => {
+    const hours = Math.floor(secs / 3600)
+      .toString()
+      .padStart(2, "0");
+    const minutes = Math.floor((secs % 3600) / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (secs % 60).toString().padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+  };
 
   return (
     <LayoutWithSidebar>
@@ -32,24 +48,32 @@ export const Activities = () => {
             <TabsTrigger value="manage">Manage</TabsTrigger>
           </TabsList>
 
-          {/* Record Tab */}
-          <TabsContent value="record" className="flex-1 flex flex-col justify-between items-center">
-            <div className="flex-1 flex items-center justify-center text-2xl pb-8">
-              Click the button to start recording an activity
-            </div>
+          <TabsContent value="record" className="flex-1 flex flex-col justify-between items-center gap-4">
+            {activeActivity ? (
+              <Card className={`w-80 h-80 flex items-center justify-center ${borderColorMap[activeActivity.color]}`}>
+                <CardContent className="flex flex-col items-center justify-center text-center">
+                  <div className="text-6xl">{formatTime(secondsElapsed)}</div>
+                  <div className={`mt-2 text-xl ${textColorMap[activeActivity.color]}`}>{activeActivity.name}</div>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="w-80 h-80 flex items-center justify-center text-2xl text-center">
+                Click the button to start recording an activity
+              </div>
+            )}
+
             <div className="self-center">
-              <RecordActivityPopover />
+              <RecordActivityPopover handleStartActivity={startTimer} />
             </div>
           </TabsContent>
 
-          {/* Manage Tab */}
           <TabsContent value="manage" className="flex-1 flex flex-col justify-between pt-4">
             <div className="overflow-y-auto flex-1 space-y-2">
               {activitiesData && activitiesData.length > 0 ? (
                 activitiesData.map((a) => (
                   <React.Fragment key={a.id}>
                     <div className="flex items-center">
-                      <div className={`w-3 h-3 rounded mr-2 ${colorMap[a.color]}`}></div>
+                      <div className={`w-3 h-3 rounded mr-2 ${bgColorMap[a.color]}`}></div>
                       <span className="flex-1">{a.name}</span>
                       <div className="space-x-2">
                         <EditActivityPopover activityId={a.id} />

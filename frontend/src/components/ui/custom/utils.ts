@@ -1,6 +1,6 @@
 import type { Color } from "@prisma/client";
 
-export const colorMap: Record<Color, string> = {
+export const bgColorMap: Record<Color, string> = {
   RED: "bg-red-500",
   ORANGE: "bg-orange-500",
   AMBER: "bg-amber-500",
@@ -18,4 +18,44 @@ export const colorMap: Record<Color, string> = {
   FUCHSIA: "bg-fuchsia-500",
   PINK: "bg-pink-500",
   ROSE: "bg-rose-500",
+};
+
+export const textColorMap: Record<Color, string> = {
+  RED: "text-red-500",
+  ORANGE: "text-orange-500",
+  AMBER: "text-amber-500",
+  YELLOW: "text-yellow-500",
+  LIME: "text-lime-500",
+  GREEN: "text-green-500",
+  EMERALD: "text-emerald-500",
+  TEAL: "text-teal-500",
+  CYAN: "text-cyan-500",
+  SKY: "text-sky-500",
+  BLUE: "text-blue-500",
+  INDIGO: "text-indigo-500",
+  VIOLET: "text-violet-500",
+  PURPLE: "text-purple-500",
+  FUCHSIA: "text-fuchsia-500",
+  PINK: "text-pink-500",
+  ROSE: "text-rose-500",
+};
+
+export const borderColorMap: Record<Color, string> = {
+  RED: "border-red-500",
+  ORANGE: "border-orange-500",
+  AMBER: "border-amber-500",
+  YELLOW: "border-yellow-500",
+  LIME: "border-lime-500",
+  GREEN: "border-green-500",
+  EMERALD: "border-emerald-500",
+  TEAL: "border-teal-500",
+  CYAN: "border-cyan-500",
+  SKY: "border-sky-500",
+  BLUE: "border-blue-500",
+  INDIGO: "border-indigo-500",
+  VIOLET: "border-violet-500",
+  PURPLE: "border-purple-500",
+  FUCHSIA: "border-fuchsia-500",
+  PINK: "border-pink-500",
+  ROSE: "border-rose-500",
 };

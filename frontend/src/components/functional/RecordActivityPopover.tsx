@@ -1,27 +1,20 @@
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { colorMap } from "../ui/custom/utils";
+import { bgColorMap } from "../ui/custom/utils";
 import { type Activity } from "@prisma/client";
-import { useNavigate } from "react-router-dom";
 import { useActivities } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
 
-export const RecordActivityPopover = () => {
-  const navigate = useNavigate();
+type Props = {
+  handleStartActivity: (activityId: string) => void;
+};
 
+export const RecordActivityPopover = ({ handleStartActivity }: Props) => {
   const [activity, setActivity] = useState<Activity>();
 
   const { data: activitiesData } = useActivities();
-
-  const handleButtonClick = () => {
-    if (!activity) return;
-    navigate("current-activity", {
-      state: { activityId: activity.id, activityName: activity.name, activityColor: activity.color },
-    });
-    setActivity(undefined);
-  };
 
   return (
     <Popover>
@@ -57,7 +50,7 @@ export const RecordActivityPopover = () => {
                   {activitiesData
                     ? activitiesData.map((a) => (
                         <SelectItem key={a.id} value={a.id} className="flex py-1 text-xs">
-                          <span className={`w-3 h-3 rounded ${colorMap[a.color]}`}></span>
+                          <span className={`w-3 h-3 rounded ${bgColorMap[a.color]}`}></span>
                           {a.name}
                         </SelectItem>
                       ))
@@ -67,7 +60,17 @@ export const RecordActivityPopover = () => {
             </div>
 
             <div className="flex justify-end">
-              <Button className="w-20" size="sm" variant="default" onClick={handleButtonClick} disabled={!activity}>
+              <Button
+                className="w-20"
+                size="sm"
+                variant="default"
+                onClick={() => {
+                  if (activity?.id) {
+                    handleStartActivity(activity.id);
+                  }
+                }}
+                disabled={!activity}
+              >
                 Start
               </Button>
             </div>

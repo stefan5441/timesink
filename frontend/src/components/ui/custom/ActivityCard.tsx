@@ -1,5 +1,5 @@
 import type { Color } from "@prisma/client";
-import { colorMap } from "./utils";
+import { bgColorMap } from "./utils";
 
 type ActivityCardProps = {
   activityName: string;
@@ -25,7 +25,7 @@ export const ActivityCard = ({ activityName, activityColor, activityLengthInSeco
   return (
     <div className="p-2 bg-background border rounded inline-block flex-shrink-0">
       <div className="flex items-top h-20">
-        <div className={`w-1.5 h-full rounded ${colorMap[activityColor]}`} />
+        <div className={`w-1.5 h-full rounded ${bgColorMap[activityColor]}`} />
 
         <div className="pl-2 pr-6">
           <h4 className="text-sm font-semibold">{activityName}</h4>

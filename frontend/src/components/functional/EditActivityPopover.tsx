@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Color } from "@prisma/client";
-import { colorMap } from "../ui/custom/utils";
+import { bgColorMap } from "../ui/custom/utils";
 import { useActivity, useUpdateActivity } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
@@ -66,7 +66,7 @@ export const EditActivityPopover = ({ activityId }: Props) => {
                 <SelectValue placeholder="Select a color" />
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(colorMap).map(([colorName, colorClass]) => (
+                {Object.entries(bgColorMap).map(([colorName, colorClass]) => (
                   <SelectItem key={colorName} value={colorName} className="flex py-1 text-xs">
                     <span className={`w-3 h-3 rounded ${colorClass}`}></span>
                     {colorName}

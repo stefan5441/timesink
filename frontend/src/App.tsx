@@ -7,21 +7,24 @@ import { Login } from "./pages/Authentication/Login";
 import { Signup } from "./pages/Authentication/Signup";
 import { ProtectedRoute } from "./pages/Others/ProtectedRoute";
 import { Activities } from "./pages/Activities/Activities";
+import { TimerProvider } from "./contexts/timer/TimeProvider";
 
 function App() {
   return (
-    <Routes>
-      <Route index element={<Home />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
+    <TimerProvider>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
 
-      <Route element={<ProtectedRoutes />}>
-        <Route path="protected" element={<ProtectedRoute />} />
-        <Route path="activities" element={<Activities />} />
-      </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="protected" element={<ProtectedRoute />} />
+          <Route path="activities" element={<Activities />} />
+        </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </TimerProvider>
   );
 }
 
