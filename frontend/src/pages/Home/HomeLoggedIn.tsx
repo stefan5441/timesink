@@ -2,13 +2,19 @@ import { getMe } from "@/api/userServices";
 import { useQuery } from "@tanstack/react-query";
 import { ActivityCard } from "@/components/ui/custom/ActivityCard";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
+import { useActivityRecords } from "@/api/activityRecord/activityRecordQueries";
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
+import { useActivities } from "@/api/activity/activityQueries";
 
 export const HomeLoggedIn = () => {
   const { data: userData } = useQuery({
     queryKey: ["HomeLoggedInUser"],
     queryFn: getMe,
   });
+
+  // TODO, find a better way to get activities through this
+  const { data: activityRecordsData } = useActivityRecords();
+  const { data: activitiesData } = useActivities();
 
   const today = new Date();
   const weekday = today.toLocaleDateString("en-GB", { weekday: "long" });
@@ -25,17 +31,20 @@ export const HomeLoggedIn = () => {
         <div className="flex flex-col gap-1 mt-6">
           <h3 className="text-lg font-semibold">Recent activities</h3>
           <div className="flex flex-nowrap overflow-x-auto gap-2 pb-4">
-            <ActivityCard
-              activityName="Competitive Programming"
-              activityLengthInSeconds={2000}
-              activityColor="PURPLE"
-            />
-            <ActivityCard activityName="Running" activityLengthInSeconds={6283} activityColor="BLUE" />
-            <ActivityCard
-              activityName="Competitive Programming"
-              activityLengthInSeconds={2322}
-              activityColor="PURPLE"
-            />
+            {activityRecordsData?.map((ar) => {
+              const activity = activitiesData?.find((a) => a.id === ar.activityId);
+
+              if (!activity) return null;
+
+              return (
+                <ActivityCard
+                  key={ar.id}
+                  activityName={activity.name}
+                  activityLengthInSeconds={ar.lengthInSeconds}
+                  activityColor={activity.color}
+                />
+              );
+            })}
           </div>
         </div>
         <footer>This will display fun facts in the future*</footer>

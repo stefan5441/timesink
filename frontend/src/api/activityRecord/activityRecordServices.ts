@@ -3,14 +3,14 @@ import { client } from "../../auth/axiosClient";
 
 type CreateActivityRecordPayload = {
   activityId: string;
-  lengthInSecnods: number;
+  lengthInSeconds: number;
 };
 
 export async function createActivityRecord({
   activityId,
-  lengthInSecnods,
+  lengthInSeconds,
 }: CreateActivityRecordPayload): Promise<ActivityRecord> {
-  const res = await client.post("activity-record", { activityId, lengthInSecnods });
+  const res = await client.post("activity-record", { activityId, lengthInSeconds });
   return res.data;
 }
 

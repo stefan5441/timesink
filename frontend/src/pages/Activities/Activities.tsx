@@ -11,16 +11,19 @@ import { MainContentContainer } from "@/components/functional/MainContentContain
 import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
 import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
 import { bgColorMap, borderColorMap, textColorMap } from "@/components/ui/custom/utils";
+import { useCreateActivityRecord } from "@/api/activityRecord/activityRecordQueries";
 
 type ActivityTab = "record" | "manage";
 
 export const Activities = () => {
   const [tab, setTab] = useState<ActivityTab>("record");
 
-  const { secondsElapsed, startTimer, activeActivityId } = useTimer();
+  const { secondsElapsed, startTimer, activeActivityId, stopTimer } = useTimer();
 
   const { data: activitiesData } = useActivities();
-  const deleteMutation = useDeleteActivity();
+  const deleteActivityMutation = useDeleteActivity();
+
+  const createActivityRecordMutation = useCreateActivityRecord();
 
   const activeActivity = activitiesData?.find((a) => a.id === activeActivityId);
 
@@ -33,6 +36,13 @@ export const Activities = () => {
       .padStart(2, "0");
     const seconds = (secs % 60).toString().padStart(2, "0");
     return `${hours}:${minutes}:${seconds}`;
+  };
+
+  const handleStopActivity = () => {
+    if (!activeActivity?.id) return;
+
+    createActivityRecordMutation.mutate({ activityId: activeActivity.id, lengthInSeconds: secondsElapsed });
+    stopTimer();
   };
 
   return (
@@ -63,7 +73,13 @@ export const Activities = () => {
             )}
 
             <div className="self-center">
-              <RecordActivityPopover handleStartActivity={startTimer} />
+              {activeActivity ? (
+                <Button size={"sm"} className={`${bgColorMap[activeActivity.color]}`} onClick={handleStopActivity}>
+                  Stop activity
+                </Button>
+              ) : (
+                <RecordActivityPopover handleStartActivity={startTimer} />
+              )}
             </div>
           </TabsContent>
 
@@ -81,7 +97,7 @@ export const Activities = () => {
                           size="sm"
                           variant="destructive"
                           className="!py-1"
-                          onClick={() => deleteMutation.mutate(a.id)}
+                          onClick={() => deleteActivityMutation.mutate(a.id)}
                         >
                           Delete
                         </Button>
