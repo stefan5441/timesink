@@ -18,11 +18,9 @@ export const HomeLoggedIn = () => {
   return (
     <LayoutWithSidebar>
       <MainContentContainer className="flex flex-col justify-between">
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <h1 className="text-xl font-semibold">{`Hi, ${userData?.username}`}</h1>
-            <p className="text-xs">{formattedDate}</p>
-          </div>
+        <div className="flex flex-col">
+          <h1 className="text-xl font-semibold">{`Hi, ${userData?.username}`}</h1>
+          <p className="text-xs">{formattedDate}</p>
         </div>
         <div className="flex flex-col gap-1 mt-6">
           <h3 className="text-lg font-semibold">Recent activities</h3>
@@ -40,6 +38,7 @@ export const HomeLoggedIn = () => {
             />
           </div>
         </div>
+        <footer>This will display fun facts in the future*</footer>
       </MainContentContainer>
     </LayoutWithSidebar>
   );

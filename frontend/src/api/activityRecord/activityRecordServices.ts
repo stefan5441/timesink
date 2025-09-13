@@ -1,5 +1,5 @@
 import type { ActivityRecord } from "@prisma/client";
-import { client } from "../auth/axiosClient";
+import { client } from "../../auth/axiosClient";
 
 type CreateActivityRecordPayload = {
   activityId: string;

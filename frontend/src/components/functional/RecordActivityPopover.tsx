@@ -3,21 +3,17 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { colorMap } from "../ui/custom/utils";
 import { type Activity } from "@prisma/client";
-import { useQuery } from "@tanstack/react-query";
-import { getActivities } from "@/api/activityServices";
+import { useNavigate } from "react-router-dom";
+import { useActivities } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
-import { useNavigate } from "react-router-dom";
 
 export const RecordActivityPopover = () => {
   const navigate = useNavigate();
 
   const [activity, setActivity] = useState<Activity>();
 
-  const { data: activitiesData } = useQuery({
-    queryKey: ["RecordActivityPopoverActivities"],
-    queryFn: getActivities,
-  });
+  const { data: activitiesData } = useActivities();
 
   const handleButtonClick = () => {
     if (!activity) return;

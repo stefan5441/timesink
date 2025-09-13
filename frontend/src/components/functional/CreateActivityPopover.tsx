@@ -4,8 +4,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Color } from "@prisma/client";
 import { colorMap } from "../ui/custom/utils";
-import { useMutation } from "@tanstack/react-query";
-import { createActivity } from "@/api/activityServices";
+import { useCreateActivity } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
 
@@ -13,9 +12,7 @@ export const CreateActivityPopover = () => {
   const [activityName, setActivityName] = useState<string>("");
   const [activityColor, setActivityColor] = useState<Color | "">("");
 
-  const mutation = useMutation({
-    mutationFn: createActivity,
-  });
+  const mutation = useCreateActivity();
 
   const handleButtonClick = () => {
     if (!activityName || !activityColor) return;

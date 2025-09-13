@@ -1,5 +1,5 @@
+import { client } from "@/auth/axiosClient";
 import type { Activity, Color } from "@prisma/client";
-import { client } from "../auth/axiosClient";
 
 type CreateActivityPayload = {
   name: string;
