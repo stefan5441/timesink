@@ -10,9 +10,10 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from ".
 
 type Props = {
   activityId: string;
+  disabled?: boolean;
 };
 
-export const EditActivityPopover = ({ activityId }: Props) => {
+export const EditActivityPopover = ({ activityId, disabled }: Props) => {
   const [activityName, setActivityName] = useState<string>();
   const [activityColor, setActivityColor] = useState<Color | "">();
 
@@ -36,7 +37,7 @@ export const EditActivityPopover = ({ activityId }: Props) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" size="sm">
+        <Button variant="secondary" size="sm" disabled={disabled}>
           Edit
         </Button>
       </PopoverTrigger>

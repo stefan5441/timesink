@@ -92,12 +92,13 @@ export const Activities = () => {
                       <div className={`w-3 h-3 rounded mr-2 ${bgColorMap[a.color]}`}></div>
                       <span className="flex-1">{a.name}</span>
                       <div className="space-x-2">
-                        <EditActivityPopover activityId={a.id} />
+                        <EditActivityPopover activityId={a.id} disabled={a.id === activeActivity?.id} />
                         <Button
                           size="sm"
                           variant="destructive"
                           className="!py-1"
                           onClick={() => deleteActivityMutation.mutate(a.id)}
+                          disabled={a.id === activeActivity?.id}
                         >
                           Delete
                         </Button>
