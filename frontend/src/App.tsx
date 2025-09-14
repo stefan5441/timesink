@@ -8,6 +8,7 @@ import { Signup } from "./pages/Authentication/Signup";
 import { ProtectedRoute } from "./pages/Others/ProtectedRoute";
 import { Activities } from "./pages/Activities/Activities";
 import { TimerProvider } from "./contexts/timer/TimeProvider";
+import { Statistics } from "./pages/Statistics/Statistics";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="protected" element={<ProtectedRoute />} />
           <Route path="activities" element={<Activities />} />
+          <Route path="stats" element={<Statistics />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

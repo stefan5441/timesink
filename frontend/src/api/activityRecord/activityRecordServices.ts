@@ -18,3 +18,8 @@ export async function getActivityRecords(): Promise<ActivityRecord[]> {
   const res = await client.get("activity-record");
   return res.data;
 }
+
+export async function getTotalTimeForActivity(activityId: string) {
+  const res = await client.get(`activity-record/${activityId}/total-time`);
+  return res.data.totalTimeInSeconds;
+}

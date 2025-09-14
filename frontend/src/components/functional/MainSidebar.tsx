@@ -35,7 +35,7 @@ export const MainSidebar = () => {
               <Flame />
               Activities
             </SidebarMenuButton>
-            <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+            <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => navigate("/stats")}>
               <ChartNoAxesCombined /> See stats
             </SidebarMenuButton>
           </SidebarMenu>

@@ -1,6 +1,6 @@
 import express, { Response, NextFunction } from "express";
 import { AuthenticatedRequest, isAuthenticated } from "../middleware";
-import { createActivityRecord, getActivityRecordsByUser } from "./activityRecord.services";
+import { createActivityRecord, getActivityRecordsByUser, getTotalTimeForActivity } from "./activityRecord.services";
 
 const router = express.Router();
 
@@ -34,5 +34,25 @@ router.get("/", isAuthenticated, async (req: AuthenticatedRequest, res: Response
     next(err);
   }
 });
+
+router.get(
+  "/:activityId/total-time",
+  isAuthenticated,
+  async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.userId;
+      const { activityId } = req.params;
+
+      if (!userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      const totalTime = await getTotalTimeForActivity(activityId, userId);
+      res.json({ activityId, totalTimeInSeconds: totalTime });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 export default router;

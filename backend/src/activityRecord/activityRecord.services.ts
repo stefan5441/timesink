@@ -70,3 +70,17 @@ export async function deleteActivityRecord(id: string, userId: string): Promise<
     throw new Error("ActivityRecord not found or no permission to delete");
   }
 }
+
+export async function getTotalTimeForActivity(activityId: string, userId: string): Promise<number> {
+  const result = await prisma.activityRecord.aggregate({
+    _sum: {
+      lengthInSeconds: true,
+    },
+    where: {
+      activityId,
+      userId,
+    },
+  });
+
+  return result._sum.lengthInSeconds ?? 0;
+}
