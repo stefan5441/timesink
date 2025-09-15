@@ -7,9 +7,13 @@ export const HomeLoggedOut = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-6 min-h-screen">
       <h1 className="text-7xl font-bold">Welcome to Timesink!</h1>
-      <div className="flex gap-4">
-        <Button content="Login" onClick={() => navigate("/login")} />
-        <Button content="Sign up" onClick={() => navigate("/signup")} />
+      <div className="flex gap-2">
+        <Button size={"lg"} onClick={() => navigate("/login")}>
+          Login
+        </Button>
+        <Button size={"lg"} onClick={() => navigate("/signup")}>
+          Sign up
+        </Button>
       </div>
     </div>
   );

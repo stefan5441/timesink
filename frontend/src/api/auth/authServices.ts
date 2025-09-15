@@ -1,4 +1,4 @@
-import { client } from "../auth/axiosClient";
+import { client } from "../../auth/axiosClient";
 
 type AuthCredentials = {
   email: string;
@@ -25,5 +25,10 @@ export async function login({ email, password }: AuthCredentials) {
     localStorage.setItem("accessToken", accessToken);
   }
 
+  return res;
+}
+
+export async function logout() {
+  const res = await client.post("auth/logout");
   return res;
 }

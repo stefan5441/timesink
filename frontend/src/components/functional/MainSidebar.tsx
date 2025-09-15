@@ -11,10 +11,13 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
 } from "../ui/sidebar";
+import { useLogout } from "@/api/auth/authQueries";
 
 export const MainSidebar = () => {
   const { isDark, toggleTheme } = useDarkMode();
   const navigate = useNavigate();
+
+  const logout = useLogout();
 
   return (
     <Sidebar variant="floating" collapsible="icon" className="w-56">
@@ -46,7 +49,7 @@ export const MainSidebar = () => {
         <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={toggleTheme}>
           {isDark ? <Sun /> : <Moon />} Change mode
         </SidebarMenuButton>
-        <SidebarMenuButton className="whitespace-nowrap overflow-hidden">
+        <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => logout.mutate()}>
           <LogOut /> Log out
         </SidebarMenuButton>
         <SidebarTrigger />

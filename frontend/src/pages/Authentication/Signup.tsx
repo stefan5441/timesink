@@ -7,7 +7,7 @@ import { useAuth } from "../../auth/useAuth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { register } from "../../api/authServices";
+import { register } from "../../api/auth/authServices";
 
 export const Signup = () => {
   const navigate = useNavigate();

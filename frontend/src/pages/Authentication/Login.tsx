@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-import { login } from "../../api/authServices";
+import { login } from "../../api/auth/authServices";
 import { useAuth } from "../../auth/useAuth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
