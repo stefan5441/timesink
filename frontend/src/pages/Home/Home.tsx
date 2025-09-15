@@ -1,9 +1,11 @@
-import { useAuth } from "../../auth/useAuth";
 import { HomeLoggedIn } from "./HomeLoggedIn";
 import { HomeLoggedOut } from "./HomeLoggedOut";
+import { useCurrentUser } from "@/api/user/userQueries";
 
 export const Home = () => {
-  const { isAuthenticated } = useAuth();
+  const { data: user, isLoading } = useCurrentUser();
 
-  return isAuthenticated ? <HomeLoggedIn /> : <HomeLoggedOut />;
+  if (isLoading) return <div>Loading...</div>;
+
+  return user ? <HomeLoggedIn /> : <HomeLoggedOut />;
 };

@@ -1,4 +1,4 @@
-import { client } from "../auth/axiosClient";
+import { client } from "../../auth/axiosClient";
 import type { User } from "@prisma/client";
 
 export async function getMe(): Promise<User> {

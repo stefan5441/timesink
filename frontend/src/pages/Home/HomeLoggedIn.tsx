@@ -1,4 +1,4 @@
-import { getMe } from "@/api/userServices";
+import { getMe } from "@/api/user/userServices";
 import { useQuery } from "@tanstack/react-query";
 import { ActivityCard } from "@/components/ui/custom/ActivityCard";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";

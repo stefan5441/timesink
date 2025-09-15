@@ -1,49 +1,43 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 
-import { useAuth } from "../../auth/useAuth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { register } from "../../api/auth/authServices";
+import { useCurrentUser } from "@/api/user/userQueries";
+import { useRegister } from "@/api/auth/authQueries";
 
 export const Signup = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { data: user } = useCurrentUser();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
-  const mutation = useMutation({
-    mutationFn: (data: { email: string; password: string; username: string }) => {
-      return register(data);
-    },
-    onSuccess: () => {
-      navigate("/");
-    },
-    onError: (err) => {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.message || "Something went wrong");
-      } else {
-        setError("Unexpected error");
-      }
-    },
-  });
+  const registerMutation = useRegister();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/", { replace: true });
-    }
-  }, [isAuthenticated, navigate]);
+  if (user) {
+    navigate("/", { replace: true });
+  }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    mutation.mutate({ email, password, username });
+    registerMutation.mutate(
+      { email, password, username },
+      {
+        onError: (err: unknown) => {
+          if (err instanceof AxiosError) {
+            setError(err.response?.data?.message || "Something went wrong");
+          } else {
+            setError("Unexpected error");
+          }
+        },
+      }
+    );
   };
 
   console.log(username);
@@ -83,9 +77,9 @@ export const Signup = () => {
 
         <Button
           type="submit"
-          content={mutation.isPending ? "Signing up..." : "Sign up"}
+          content={registerMutation.isPending ? "Signing up..." : "Sign up"}
           className="mt-4"
-          disabled={mutation.isPending}
+          disabled={registerMutation.isPending}
         />
       </form>
     </div>

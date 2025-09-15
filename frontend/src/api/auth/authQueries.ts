@@ -1,18 +1,41 @@
 import { useNavigate } from "react-router-dom";
-import { login, logout, register } from "./authServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-export function useRegister() {
-  return useMutation({
-    mutationFn: register,
-  });
-}
+import { login, logout, register } from "./authServices";
 
 export function useLogin() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: login,
+    onSuccess: (res) => {
+      const token = res.data.accessToken;
+      localStorage.setItem("accessToken", token);
+
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+
+      navigate("/", { replace: true });
+    },
   });
 }
+
+export function useRegister() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: register,
+    onSuccess: (res) => {
+      const token = res.data.accessToken;
+      localStorage.setItem("accessToken", token);
+
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+
+      navigate("/", { replace: true });
+    },
+  });
+}
+
 export function useLogout() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -21,8 +44,10 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       localStorage.removeItem("accessToken");
-      queryClient.clear();
-      navigate("/");
+      queryClient.setQueryData(["currentUser"], null);
+      if (location.pathname !== "/") {
+        navigate("/", { replace: true });
+      }
     },
   });
 }
