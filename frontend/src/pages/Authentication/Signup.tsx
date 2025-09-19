@@ -75,12 +75,9 @@ export const Signup = () => {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <Button
-          type="submit"
-          content={registerMutation.isPending ? "Signing up..." : "Sign up"}
-          className="mt-4"
-          disabled={registerMutation.isPending}
-        />
+        <Button className="mt-4" disabled={registerMutation.isPending}>
+          {registerMutation.isPending ? "Signing up..." : "Sign up"}
+        </Button>
       </form>
     </div>
   );

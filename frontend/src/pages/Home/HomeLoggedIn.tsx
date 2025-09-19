@@ -28,26 +28,36 @@ export const HomeLoggedIn = () => {
           <h1 className="text-xl font-semibold">{`Hi, ${userData?.username}`}</h1>
           <p className="text-xs">{formattedDate}</p>
         </div>
-        <div className="flex flex-col gap-1 mt-6">
-          <h3 className="text-lg font-semibold">Recent activities</h3>
-          <div className="flex flex-nowrap overflow-x-auto gap-2 pb-4">
-            {activityRecordsData?.map((ar) => {
-              const activity = activitiesData?.find((a) => a.id === ar.activityId);
 
-              if (!activity) return null;
+        {activitiesData && activitiesData.length ? (
+          <div className="flex flex-col gap-1">
+            <h3 className="text-lg">Recent activities</h3>
+            <div className="flex flex-nowrap overflow-x-auto gap-2 pb-4">
+              {activityRecordsData?.slice(0, 5).map((ar) => {
+                const activity = activitiesData?.find((a) => a.id === ar.activityId);
 
-              return (
-                <ActivityCard
-                  key={ar.id}
-                  activityName={activity.name}
-                  activityLengthInSeconds={ar.lengthInSeconds}
-                  activityColor={activity.color}
-                />
-              );
-            })}
+                if (!activity) return null;
+
+                return (
+                  <ActivityCard
+                    key={ar.id}
+                    activityName={activity.name}
+                    activityLengthInSeconds={ar.lengthInSeconds}
+                    activityColor={activity.color}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <footer>This will display fun facts in the future*</footer>
+        ) : (
+          <div>
+            <p className="font-medium text-2xl">Step 1: Click on the activities tab in the sidebar</p>
+            <p className="font-medium text-2xl">Step 2: Create an activity</p>
+            <p className="font-medium text-2xl">Step 3: Start recording</p>
+          </div>
+        )}
+
+        <footer>Great job buddy!</footer>
       </MainContentContainer>
     </LayoutWithSidebar>
   );

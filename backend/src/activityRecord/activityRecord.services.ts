@@ -12,6 +12,12 @@ type UpdateActivityRecordPayload = {
   lengthInSeconds?: number;
 };
 
+type HeatmapActivity = {
+  date: string;
+  count: number;
+  level: number;
+};
+
 export async function createActivityRecord({ activityId, userId, lengthInSeconds }: CreateActivityRecordPayload) {
   const activity = await prisma.activity.findFirst({
     where: { id: activityId, userId },
@@ -83,4 +89,71 @@ export async function getTotalTimeForActivity(activityId: string, userId: string
   });
 
   return result._sum.lengthInSeconds ?? 0;
+}
+
+export async function getTimeForActivity(
+  activityId: string,
+  dateFrom: Date,
+  dateTill: Date,
+  userId: string
+): Promise<number> {
+  const result = await prisma.activityRecord.aggregate({
+    _sum: {
+      lengthInSeconds: true,
+    },
+    where: {
+      activityId,
+      userId,
+      createdAt: {
+        gte: dateFrom,
+        lte: dateTill,
+      },
+    },
+  });
+
+  return result._sum.lengthInSeconds ?? 0;
+}
+
+export async function getActivityHeatmap(activityId: string, userId: string): Promise<HeatmapActivity[]> {
+  const today = new Date();
+  const oneYearAgo = new Date(today);
+  oneYearAgo.setDate(today.getDate() - 365);
+
+  const records = await prisma.activityRecord.findMany({
+    where: {
+      activityId,
+      userId,
+      createdAt: {
+        gte: oneYearAgo,
+        lte: today,
+      },
+    },
+    select: {
+      createdAt: true,
+      lengthInSeconds: true,
+    },
+  });
+
+  const map = new Map<string, number>();
+  records.forEach((r) => {
+    const dateKey = r.createdAt.toISOString().split("T")[0];
+    map.set(dateKey, (map.get(dateKey) || 0) + r.lengthInSeconds);
+  });
+
+  const result: HeatmapActivity[] = [];
+  for (let d = new Date(oneYearAgo); d <= today; d.setDate(d.getDate() + 1)) {
+    const dateStr = d.toISOString().split("T")[0];
+    const count = map.get(dateStr) || 0;
+
+    let level = 0;
+    if (count === 0) level = 0;
+    else if (count > 0 && count <= 30 * 60) level = 1; // 0-30min
+    else if (count > 30 * 60 && count <= 60 * 60) level = 2; // 30-60min
+    else if (count > 60 * 60 && count <= 2 * 60 * 60) level = 3; // 1-2h
+    else level = 4; // >2h
+
+    result.push({ date: dateStr, count, level });
+  }
+
+  return result;
 }

@@ -1,18 +1,39 @@
 import { useEffect, useState } from "react";
-import type { Activity } from "@prisma/client";
-import { bgColorMap, textColorMap } from "@/components/ui/custom/utils";
+import { Color, type Activity } from "@prisma/client";
+import { bgColorMap } from "@/components/ui/custom/utils";
 import { useActivities } from "@/api/activity/activityQueries";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useGetTotalTimeForActivity } from "@/api/activityRecord/activityRecordQueries";
-import { formatTotalTime } from "./utils";
+import {
+  useGetActivityHeatmap,
+  useGetActivityTimeframeTime,
+  useGetTotalTimeForActivity,
+} from "@/api/activityRecord/activityRecordQueries";
 import { ActivityHeatmap } from "@/components/ui/custom/ActivityHeatmap/ActivityHeatmap";
+import { getEndOfMonth, getEndOfWeek, getEndOfYear, getStartOfMonth, getStartOfWeek, getStartOfYear } from "./utils";
+import { StatisticsTimeItem } from "./StatisticsTimeItem";
 
 export const Statistics = () => {
   const [activity, setActivity] = useState<Activity>();
   const { data: activitiesData } = useActivities();
   const { data: totalActivityTimeData } = useGetTotalTimeForActivity(activity?.id ?? "");
+  const { data: totalWeeklyActivityData } = useGetActivityTimeframeTime(
+    activity?.id ?? "",
+    getStartOfWeek(),
+    getEndOfWeek()
+  );
+  const { data: totalMonthlyActivityData } = useGetActivityTimeframeTime(
+    activity?.id ?? "",
+    getStartOfMonth(),
+    getEndOfMonth()
+  );
+  const { data: totalYearlyActivityData } = useGetActivityTimeframeTime(
+    activity?.id ?? "",
+    getStartOfYear(),
+    getEndOfYear()
+  );
+  const { data: heatmapData } = useGetActivityHeatmap(activity?.id ?? "");
 
   useEffect(() => {
     if (activitiesData && activitiesData.length > 0 && !activity) {
@@ -51,12 +72,33 @@ export const Statistics = () => {
           </div>
 
           <div className="flex-1">
-            <div className="flex flex-col justify-center h-full gap-4">
-              <div className={`${activity?.color ? textColorMap[activity.color] : ""} font-semibold`}>
-                Total time spent: {formatTotalTime(totalActivityTimeData)}
+            <div className="flex flex-col justify-center h-full gap-10">
+              <div className="flex gap-10">
+                <StatisticsTimeItem
+                  timeInSeconds={totalActivityTimeData}
+                  activityColor={activity?.color ?? Color.GREEN}
+                  label="all time"
+                />
+                <StatisticsTimeItem
+                  timeInSeconds={totalWeeklyActivityData}
+                  activityColor={activity?.color ?? Color.GREEN}
+                  label="this week"
+                />
+                <StatisticsTimeItem
+                  timeInSeconds={totalMonthlyActivityData}
+                  activityColor={activity?.color ?? Color.GREEN}
+                  label="this month"
+                />
+                <StatisticsTimeItem
+                  timeInSeconds={totalYearlyActivityData}
+                  activityColor={activity?.color ?? Color.GREEN}
+                  label="this year"
+                />
               </div>
+
               <div>
-                <ActivityHeatmap activities={[]} />
+                <h2 className="mb-1">How this year is going:</h2>
+                <ActivityHeatmap activities={heatmapData ?? []} color={activity?.color ?? Color.GREEN} />
               </div>
             </div>
           </div>

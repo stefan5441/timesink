@@ -2,7 +2,9 @@ import type { Color } from "@prisma/client";
 import { getHeatmapMonthData } from "./utils";
 import type { HeatmapActivity } from "./types";
 import { ActivityHeatmapTooltip } from "./ActivityHeatmapTooltip";
+import { formatTotalTime } from "@/pages/Statistics/utils";
 import { cellColorsMap } from "../utils";
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 type Props = {
   monthName: string;
@@ -28,16 +30,13 @@ export const ActivityHeatmapMonth: React.FC<Props> = ({
       <div className="grid grid-rows-7 grid-flow-col gap-0.5">
         {heatmapMonthData.map((a, i) => {
           if (a === "invisible") {
-            return <div key={i} className="w-3 h-3 bg-transparent" />;
+            return <div key={i} className="w-2.5 h-2.5 bg-transparent rounded-xs" />;
           }
           return (
-            <ActivityHeatmapTooltip
-              key={i}
-              content={`${a.count} ${a.count === 1 ? "activity" : "activities"} on ${a.date}`}
-            >
+            <ActivityHeatmapTooltip key={i} content={`${formatTotalTime(a.count)} of time sunk on ${a.date}`}>
               <div
                 key={i}
-                className={`w-3 h-3 hover:border-2 hover:border-sky-100 rounded-xs ${cellColors[a.level]}`}
+                className={`w-2.5 h-2.5 hover:border-2 hover:border-sky-100 rounded-xs ${cellColors[a.level]}`}
               />
             </ActivityHeatmapTooltip>
           );

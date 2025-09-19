@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "@/hooks/useDarkMode";
-import { ChartNoAxesCombined, Flame, House, LogOut, Moon, Sun, User } from "lucide-react";
+import { ChartNoAxesCombined, Flame, House, LogOut, Moon, Sun } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarTrigger,
@@ -21,11 +20,11 @@ export const MainSidebar = () => {
 
   return (
     <Sidebar variant="floating" collapsible="icon" className="w-56">
-      <SidebarHeader className="flex justify-center py-4">
+      {/* <SidebarHeader className="flex justify-center py-4">
         <SidebarMenuButton>
           <User /> Profile
         </SidebarMenuButton>
-      </SidebarHeader>
+      </SidebarHeader> */}
 
       <SidebarContent>
         <SidebarGroup>
