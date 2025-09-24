@@ -1,34 +1,20 @@
 import { client } from "../../auth/axiosClient";
 
-type AuthCredentials = {
-  email: string;
-  password: string;
-  username?: string;
+type GoogleLoginPayload = {
+  idToken: string;
 };
 
-export async function register({ email, password, username }: AuthCredentials) {
-  const res = await client.post("auth/register", { email, password, username });
+export async function loginWithGoogle({ idToken }: GoogleLoginPayload) {
+  const res = await client.post<{ accessToken: string }>("/auth/login/google", { idToken });
 
-  const accessToken = res.data.accessToken;
-  if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
+  if (res.data.accessToken) {
+    localStorage.setItem("accessToken", res.data.accessToken);
   }
 
-  return res;
-}
-
-export async function login({ email, password }: AuthCredentials) {
-  const res = await client.post("auth/login", { email, password });
-
-  const accessToken = res.data.accessToken;
-  if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
-  }
-
-  return res;
+  return res.data;
 }
 
 export async function logout() {
-  const res = await client.post("auth/logout");
-  return res;
+  await client.post("/auth/logout");
+  localStorage.removeItem("accessToken");
 }

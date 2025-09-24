@@ -11,9 +11,6 @@ export const HomeLoggedOut = () => {
         <Button size={"lg"} onClick={() => navigate("/login")}>
           Login
         </Button>
-        <Button size={"lg"} onClick={() => navigate("/signup")}>
-          Sign up
-        </Button>
       </div>
     </div>
   );

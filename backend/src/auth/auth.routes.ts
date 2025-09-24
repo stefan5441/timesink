@@ -1,66 +1,41 @@
-import express, { Request, Response, NextFunction } from "express";
 import { generateTokens } from "../utils/jwt";
-import { addRefreshTokenToWhitelist, deleteRefreshTokenById, findRefreshToken, revokeTokens } from "./auth.services";
-import { findUserByEmail, createUserByEmailAndPassword, findUserById } from "../user/user.services";
-import { loginSchema, registerSchema } from "../utils/yup";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
+import express, { Request, Response, NextFunction } from "express";
+
+import { findOrCreateGoogleUser, findUserById } from "../user/user.services";
+import { addRefreshTokenToWhitelist, deleteRefreshTokenById, findRefreshToken } from "./auth.services";
 
 const router = express.Router();
 
-router.post("/register", async (req: Request, res: Response, next: NextFunction) => {
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+router.post("/login/google", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password, username } = await registerSchema.validate(req.body, {
-      stripUnknown: true,
-    });
+    const { idToken } = req.body;
 
-    const existingUser = await findUserByEmail(email);
-
-    if (existingUser) {
+    if (!idToken) {
       res.status(400);
-      throw new Error("Email already in use.");
+      throw new Error("Missing Google ID token.");
     }
 
-    const user = await createUserByEmailAndPassword({ email, password, username });
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload?.email) {
+      res.status(400);
+      throw new Error("Invalid Google token.");
+    }
+
+    const user = await findOrCreateGoogleUser({
+      email: payload.email,
+      name: payload.name,
+    });
+
     const { accessToken, refreshToken } = generateTokens(user);
     await addRefreshTokenToWhitelist({ refreshToken, userId: user.id });
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 1000 * 60 * 60 * 24 * 30,
-    });
-
-    res.json({
-      accessToken,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { email, password } = await loginSchema.validate(req.body, {
-      stripUnknown: true,
-    });
-
-    const existingUser = await findUserByEmail(email);
-
-    if (!existingUser) {
-      res.status(403);
-      throw new Error("Invalid login credentials.");
-    }
-
-    const validPassword = await bcrypt.compare(password, existingUser.password);
-    if (!validPassword) {
-      res.status(403);
-      throw new Error("Invalid login credentials.");
-    }
-
-    const { accessToken, refreshToken } = generateTokens(existingUser);
-    await addRefreshTokenToWhitelist({ refreshToken, userId: existingUser.id });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -148,43 +123,5 @@ router.post("/refreshToken", async (req: Request, res: Response, next: NextFunct
     next(err);
   }
 });
-
-router.get("/me", async (req: Request, res: Response) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader?.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as { userId: string };
-
-    const user = await findUserById(payload.userId);
-
-    if (!user) {
-      return res.status(401).json({ message: "User not found" });
-    }
-
-    res.json({
-      id: user.id,
-      email: user.email,
-    });
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token" });
-  }
-});
-
-// Demo route to revoke all refresh tokens for a user
-// router.post("/revokeRefreshTokens", async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const { userId } = req.body as { userId: string };
-//     await revokeTokens(userId);
-//     res.json({ message: `Tokens revoked for user with id #${userId}` });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 export default router;

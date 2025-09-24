@@ -1,26 +1,21 @@
-import bcrypt from "bcrypt";
 import prisma from "../utils/prisma";
 import { User } from "@prisma/client";
 
-export async function findUserByEmail(email: string): Promise<User | null> {
-  return prisma.user.findUnique({
-    where: { email },
+export async function findOrCreateGoogleUser(profile: { email: string; name?: string }): Promise<User> {
+  let user = await prisma.user.findUnique({
+    where: { email: profile.email },
   });
-}
 
-export async function createUserByEmailAndPassword(user: {
-  email: string;
-  password: string;
-  username: string;
-}): Promise<User> {
-  const hashedPassword = await bcrypt.hash(user.password, 12);
-  return prisma.user.create({
-    data: {
-      email: user.email,
-      password: hashedPassword,
-      username: user.username,
-    },
-  });
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: profile.email,
+        username: profile.name || profile.email.split("@")[0],
+      },
+    });
+  }
+
+  return user;
 }
 
 export async function findUserById(id: string): Promise<User | null> {
