@@ -6,7 +6,7 @@ import {
   getTimeForActivityTimeframe,
   getTotalTimeForActivity,
 } from "./activityRecordServices";
-import type { HeatmapActivity } from "@/components/ui/custom/ActivityHeatmap/types";
+import type { HeatmapActivity } from "@/components/custom/ActivityHeatmap/types";
 
 export const activityRecordKeys = {
   all: ["activityRecords"] as const,

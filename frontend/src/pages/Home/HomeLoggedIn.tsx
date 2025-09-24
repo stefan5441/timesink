@@ -1,6 +1,6 @@
 import { getMe } from "@/api/user/userServices";
 import { useQuery } from "@tanstack/react-query";
-import { ActivityCard } from "@/components/ui/custom/ActivityCard";
+import { ActivityCard } from "@/components/custom/ActivityCard";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
 import { useActivityRecords } from "@/api/activityRecord/activityRecordQueries";
 import { MainContentContainer } from "@/components/functional/MainContentContainer";

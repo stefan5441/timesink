@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useTimer } from "@/contexts/timer/useTimer";
+import { useTimer } from "@/contexts/TimerContext/useTimer";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
@@ -10,7 +10,7 @@ import { useActivities, useDeleteActivity } from "@/api/activity/activityQueries
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
 import { RecordActivityPopover } from "@/components/functional/RecordActivityPopover";
 import { CreateActivityPopover } from "@/components/functional/CreateActivityPopover";
-import { bgColorMap, borderColorMap, textColorMap } from "@/components/ui/custom/utils";
+import { bgColorMap, borderColorMap, textColorMap } from "@/components/custom/utils";
 import { useCreateActivityRecord } from "@/api/activityRecord/activityRecordQueries";
 
 type ActivityTab = "record" | "manage";

@@ -8,7 +8,7 @@ import ProtectedRoutes from "./auth/ProtectedRoutes";
 import { Login } from "./pages/Authentication/Login";
 import { Statistics } from "./pages/Statistics/Statistics";
 import { Activities } from "./pages/Activities/Activities";
-import { TimerProvider } from "./contexts/timer/TimeProvider";
+import { TimerProvider } from "./contexts/TimerContext/TimeProvider";
 
 const queryClient = new QueryClient();
 

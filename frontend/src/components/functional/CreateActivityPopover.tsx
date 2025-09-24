@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Color } from "@prisma/client";
-import { bgColorMap } from "../ui/custom/utils";
+import { bgColorMap } from "../custom/utils";
 import { useCreateActivity } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";

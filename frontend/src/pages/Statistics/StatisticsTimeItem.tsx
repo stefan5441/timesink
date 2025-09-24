@@ -1,4 +1,4 @@
-import { textColorMap } from "@/components/ui/custom/utils";
+import { textColorMap } from "@/components/custom/utils";
 import { formatTotalTime } from "./utils";
 import type { Color } from "@prisma/client";
 

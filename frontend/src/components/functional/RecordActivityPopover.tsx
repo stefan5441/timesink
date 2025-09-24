@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { bgColorMap } from "../ui/custom/utils";
+import { bgColorMap } from "../custom/utils";
 import { type Activity } from "@prisma/client";
 import { useActivities } from "@/api/activity/activityQueries";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";

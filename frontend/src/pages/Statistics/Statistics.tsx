@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Color, type Activity } from "@prisma/client";
-import { bgColorMap } from "@/components/ui/custom/utils";
+import { bgColorMap } from "@/components/custom/utils";
 import { useActivities } from "@/api/activity/activityQueries";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
 import { MainContentContainer } from "@/components/functional/MainContentContainer";
@@ -10,7 +10,7 @@ import {
   useGetActivityTimeframeTime,
   useGetTotalTimeForActivity,
 } from "@/api/activityRecord/activityRecordQueries";
-import { ActivityHeatmap } from "@/components/ui/custom/ActivityHeatmap/ActivityHeatmap";
+import { ActivityHeatmap } from "@/components/custom/ActivityHeatmap/ActivityHeatmap";
 import { getEndOfMonth, getEndOfWeek, getEndOfYear, getStartOfMonth, getStartOfWeek, getStartOfYear } from "./utils";
 import { StatisticsTimeItem } from "./StatisticsTimeItem";
 

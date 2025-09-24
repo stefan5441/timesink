@@ -1,6 +1,6 @@
 import type { ActivityRecord } from "@prisma/client";
 import { client } from "../../auth/axiosClient";
-import type { HeatmapActivity } from "@/components/ui/custom/ActivityHeatmap/types";
+import type { HeatmapActivity } from "@/components/custom/ActivityHeatmap/types";
 
 type CreateActivityRecordPayload = {
   activityId: string;
