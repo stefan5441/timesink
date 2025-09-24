@@ -1,14 +1,14 @@
+import cors from "cors";
 import express from "express";
+import cookieParser from "cookie-parser";
+
+import prisma from "./utils/prisma";
+import { errorHandler } from "./middleware";
 import authRoutes from "./auth/auth.routes";
+import userRoutes from "./user/user.routes";
 import activityRoutes from "./activity/activity.routes";
 import activityRecordRoutes from "./activityRecord/activityRecord.routes";
-import userRoutes from "./user/user.routes";
-import { errorHandler } from "./middleware";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
