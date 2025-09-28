@@ -3,10 +3,10 @@ import express from "express";
 import cookieParser from "cookie-parser";
 
 import prisma from "./utils/prisma";
-import { errorHandler } from "./middleware";
 import authRoutes from "./auth/auth.routes";
 import userRoutes from "./user/user.routes";
 import activityRoutes from "./activity/activity.routes";
+import { errorHandler } from "./middleware/errorHandler";
 import activityRecordRoutes from "./activityRecord/activityRecord.routes";
 
 const app = express();

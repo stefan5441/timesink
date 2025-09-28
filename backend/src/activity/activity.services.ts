@@ -1,5 +1,5 @@
-import { Activity, Color } from "@prisma/client";
 import prisma from "../utils/prisma";
+import { Activity, Color } from "@prisma/client";
 
 type CreateActivityPayload = {
   name: string;
