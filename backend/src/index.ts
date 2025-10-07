@@ -11,10 +11,10 @@ import activityRecordRoutes from "./activityRecord/activityRecord.routes";
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const corsOptions = {
-  origin: `http://localhost:5441`,
+  origin: `http://localhost:3000`,
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Color, type Activity } from "@prisma/client";
+import type { Activity } from "@prisma/client";
 import { bgColorMap } from "@/components/custom/utils";
 import { useActivities } from "@/api/activity/activityQueries";
 import { LayoutWithSidebar } from "@/components/functional/LayoutWithSidebar";
@@ -76,29 +76,29 @@ export const Statistics = () => {
               <div className="flex gap-10">
                 <StatisticsTimeItem
                   timeInSeconds={totalActivityTimeData}
-                  activityColor={activity?.color ?? Color.GREEN}
+                  activityColor={activity?.color ?? "GREEN"}
                   label="all time"
                 />
                 <StatisticsTimeItem
                   timeInSeconds={totalWeeklyActivityData}
-                  activityColor={activity?.color ?? Color.GREEN}
+                  activityColor={activity?.color ?? "GREEN"}
                   label="this week"
                 />
                 <StatisticsTimeItem
                   timeInSeconds={totalMonthlyActivityData}
-                  activityColor={activity?.color ?? Color.GREEN}
+                  activityColor={activity?.color ?? "GREEN"}
                   label="this month"
                 />
                 <StatisticsTimeItem
                   timeInSeconds={totalYearlyActivityData}
-                  activityColor={activity?.color ?? Color.GREEN}
+                  activityColor={activity?.color ?? "GREEN"}
                   label="this year"
                 />
               </div>
 
               <div>
                 <h2 className="mb-1">How this year is going:</h2>
-                <ActivityHeatmap activities={heatmapData ?? []} color={activity?.color ?? Color.GREEN} />
+                <ActivityHeatmap activities={heatmapData ?? []} color={activity?.color ?? "GREEN"} />
               </div>
             </div>
           </div>

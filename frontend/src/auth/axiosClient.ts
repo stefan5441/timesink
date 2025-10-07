@@ -95,5 +95,6 @@ class AxiosInterceptor {
 }
 
 export const client = new AxiosInterceptor({
-  baseURL: "http://localhost:3000",
+  // TODO: Make env variable
+  baseURL: "http://localhost:4000",
 });

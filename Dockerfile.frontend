@@ -1,0 +1,28 @@
+# Dockerfile.frontend
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy root package.json files + workspace package.json files
+COPY package.json package-lock.json ./
+COPY frontend/package*.json ./frontend/
+COPY backend/package*.json ./backend/
+COPY prisma/package*.json ./prisma/
+
+# Install all workspaces
+RUN npm install
+
+# Copy frontend source code
+COPY frontend ./frontend
+COPY prisma ./prisma
+
+# Generate Prisma client (frontend may need types)
+RUN npm run prisma:generate --workspace=@timesink/prisma
+
+# Build frontend
+RUN npm run build --workspace=frontend
+
+# Serve with nginx
+FROM nginx:alpine AS runner
+COPY --from=builder /app/frontend/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

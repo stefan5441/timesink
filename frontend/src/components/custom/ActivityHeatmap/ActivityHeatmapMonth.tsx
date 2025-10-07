@@ -4,7 +4,6 @@ import type { HeatmapActivity } from "./types";
 import { ActivityHeatmapTooltip } from "./ActivityHeatmapTooltip";
 import { formatTotalTime } from "@/pages/Statistics/utils";
 import { cellColorsMap } from "../utils";
-import { useDarkMode } from "@/hooks/useDarkMode";
 
 type Props = {
   monthName: string;
