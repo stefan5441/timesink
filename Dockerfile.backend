@@ -1,36 +1,22 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy root package.json files and workspace package.json files
 COPY package.json package-lock.json ./
 COPY backend/package*.json ./backend/
 COPY prisma/package*.json ./prisma/
-COPY frontend/package*.json ./frontend/
+RUN npm ci --omit=dev
 
-# Install all workspaces dependencies
-RUN npm install
-
-# Copy source code
 COPY backend ./backend
 COPY prisma ./prisma
-COPY frontend ./frontend
 
-# Generate Prisma client
 RUN npm run prisma:generate --workspace=@timesink/prisma
-
-# Build backend (TypeScript → JS)
 RUN npm run build --workspace=backend
 
-# Production image
 FROM node:20-alpine AS runner
 WORKDIR /app
-
-# Copy root package.json files (needed for workspace commands)
 COPY --from=builder /app/package.json /app/package-lock.json ./
-
-# Copy built backend + node_modules
 COPY --from=builder /app/backend ./backend
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
-EXPOSE 4000
+
 CMD ["npm", "run", "start", "--workspace=backend"]
