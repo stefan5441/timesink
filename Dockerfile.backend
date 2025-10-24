@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY backend/package*.json ./backend/
 COPY prisma/package*.json ./prisma/
-RUN npm ci --omit=dev
+RUN npm ci
 
 COPY backend ./backend
 COPY prisma ./prisma
@@ -15,8 +15,9 @@ RUN npm run build --workspace=backend
 FROM node:20-alpine AS runner
 WORKDIR /app
 COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/backend ./backend
+COPY --from=builder /app/backend/dist ./backend/dist
+COPY --from=builder /app/backend/package.json	./backend/
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
 
-CMD ["npm", "run", "start", "--workspace=backend"]
+CMD ["node", "backend/dist/index.js"]
