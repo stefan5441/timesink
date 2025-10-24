@@ -11,10 +11,11 @@ import activityRecordRoutes from "./activityRecord/activityRecord.routes";
 
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = Number(process.env.PORT) || 4000;
+const HOST = process.env.HOST || "0.0.0.0";
 
 const corsOptions = {
-  origin: `http://localhost:3000`,
+  origin: process.env.CORS_ORIGIN,
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -32,8 +33,8 @@ app.use("/activity-record", activityRecordRoutes);
 app.use(errorHandler);
 
 async function main() {
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
   });
 }
 
