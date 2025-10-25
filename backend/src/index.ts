@@ -1,3 +1,4 @@
+import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import cookieParser from "cookie-parser";
@@ -14,6 +15,7 @@ const app = express();
 const PORT = Number(process.env.PORT) || 4000;
 const HOST = process.env.HOST || "0.0.0.0";
 
+console.log(process.env.CORS_ORIGIN);
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,
   credentials: true,
