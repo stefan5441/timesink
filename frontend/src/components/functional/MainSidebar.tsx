@@ -15,41 +15,43 @@ import { useLogout } from "@/api/auth/authQueries";
 export const MainSidebar = () => {
   const { isDark, toggleTheme } = useDarkMode();
   const navigate = useNavigate();
-
   const logout = useLogout();
 
   return (
-    <Sidebar variant="floating" collapsible="icon" className="w-56">
-      {/* <SidebarHeader className="flex justify-center py-4">
-        <SidebarMenuButton>
-          <User /> Profile
-        </SidebarMenuButton>
-      </SidebarHeader> */}
-
+    <Sidebar variant="floating" collapsible="icon" className="w-72">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarMenu>
-            <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => navigate("/")}>
-              <House />
-              Home
+          <SidebarMenu className="space-y-1">
+            <SidebarMenuButton className="h-12 text-base justify-start gap-3 px-3" onClick={() => navigate("/")}>
+              <House strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+              <span>Home</span>
             </SidebarMenuButton>
-            <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => navigate("/activities")}>
-              <Flame />
-              Activities
+            <SidebarMenuButton
+              className="h-12 text-base justify-start gap-3 px-3"
+              onClick={() => navigate("/activities")}
+            >
+              <Flame strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+              <span>Activities</span>
             </SidebarMenuButton>
-            <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => navigate("/stats")}>
-              <ChartNoAxesCombined /> See stats
+            <SidebarMenuButton className="h-12 text-base justify-start gap-3 px-3" onClick={() => navigate("/stats")}>
+              <ChartNoAxesCombined strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+              <span>See stats</span>
             </SidebarMenuButton>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter>
-        <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={toggleTheme}>
-          {isDark ? <Sun /> : <Moon />} Change mode
+      <SidebarFooter className="space-y-1">
+        <SidebarMenuButton className="h-12 text-base justify-start gap-3 px-3" onClick={toggleTheme}>
+          {isDark ? (
+            <Sun strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+          ) : (
+            <Moon strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+          )}
+          <span>Change mode</span>
         </SidebarMenuButton>
-        <SidebarMenuButton className="whitespace-nowrap overflow-hidden" onClick={() => logout.mutate()}>
-          <LogOut /> Log out
+        <SidebarMenuButton className="h-12 text-base justify-start gap-3 px-3" onClick={() => logout.mutate()}>
+          <LogOut strokeWidth={2} style={{ width: "20px", height: "20px", flexShrink: 0 }} />
+          <span>Log out</span>
         </SidebarMenuButton>
         <SidebarTrigger />
       </SidebarFooter>

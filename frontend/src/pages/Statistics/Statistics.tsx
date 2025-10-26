@@ -46,7 +46,7 @@ export const Statistics = () => {
       <MainContentContainer>
         <div className="flex flex-col h-full gap-4">
           <div className="flex justify-between">
-            <h1 className="text-xl font-semibold">Statistics</h1>
+            <h1 className="text-3xl font-semibold">Statistics</h1>
 
             <Select
               value={activity?.id ?? ""}

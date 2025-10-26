@@ -48,7 +48,7 @@ export const Activities = () => {
   return (
     <LayoutWithSidebar>
       <MainContentContainer className="flex flex-col gap-2">
-        <h1 className="text-xl font-semibold">
+        <h1 className="text-3xl font-semibold">
           Activities - {tab === "record" ? "Record an activity" : "Manage activities"}
         </h1>
 
@@ -58,7 +58,7 @@ export const Activities = () => {
             <TabsTrigger value="manage">Manage</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="record" className="flex-1 flex flex-col justify-between items-center gap-4">
+          <TabsContent value="record" className="flex-1 flex flex-col justify-center items-center gap-4">
             {activeActivity ? (
               <Card className={`w-80 h-80 flex items-center justify-center ${borderColorMap[activeActivity.color]}`}>
                 <CardContent className="flex flex-col items-center justify-center text-center">
@@ -67,7 +67,7 @@ export const Activities = () => {
                 </CardContent>
               </Card>
             ) : (
-              <div className="w-80 h-80 flex items-center justify-center text-2xl text-center">
+              <div className="w-80 h-full flex items-center justify-center text-2xl text-center">
                 Click the button to start recording an activity
               </div>
             )}
@@ -83,8 +83,8 @@ export const Activities = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="manage" className="flex-1 flex flex-col justify-between pt-4">
-            <div className="overflow-y-auto flex-1 space-y-2">
+          <TabsContent value="manage" className="flex-1 flex flex-col justify-between items-center pt-4">
+            <div className="overflow-y-auto flex-1 space-y-2 w-full">
               {activitiesData && activitiesData.length > 0 ? (
                 activitiesData.map((a) => (
                   <React.Fragment key={a.id}>
@@ -108,7 +108,7 @@ export const Activities = () => {
                   </React.Fragment>
                 ))
               ) : (
-                <div className="text-xl">
+                <div className="w-80 h-full flex items-center justify-center text-2xl text-center">
                   You have no added activities, add an activity by clicking the button below
                 </div>
               )}

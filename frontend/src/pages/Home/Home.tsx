@@ -1,5 +1,5 @@
 import { HomeLoggedIn } from "./HomeLoggedIn";
-import { HomeLoggedOut } from "./HomeLoggedOut";
+import { Login } from "../Authentication/Login";
 import { useCurrentUser } from "@/api/user/userQueries";
 
 export const Home = () => {
@@ -7,5 +7,5 @@ export const Home = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  return user ? <HomeLoggedIn /> : <HomeLoggedOut />;
+  return user ? <HomeLoggedIn /> : <Login />;
 };

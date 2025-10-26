@@ -25,8 +25,8 @@ export const HomeLoggedIn = () => {
     <LayoutWithSidebar>
       <MainContentContainer className="flex flex-col justify-between">
         <div className="flex flex-col">
-          <h1 className="text-xl font-semibold">{`Hi, ${userData?.username}`}</h1>
-          <p className="text-xs">{formattedDate}</p>
+          <h1 className="text-3xl font-semibold">{`Hi, ${userData?.username}`}</h1>
+          <p className="text-lg">{formattedDate}</p>
         </div>
 
         {activitiesData && activitiesData.length ? (
@@ -50,14 +50,14 @@ export const HomeLoggedIn = () => {
             </div>
           </div>
         ) : (
-          <div>
-            <p className="font-medium text-2xl">Step 1: Click on the activities tab in the sidebar</p>
-            <p className="font-medium text-2xl">Step 2: Create an activity</p>
-            <p className="font-medium text-2xl">Step 3: Start recording</p>
+          <div className="flex flex-col gap-4">
+            <p className="font-medium text-4xl">Step 1: Click on the activities tab in the sidebar</p>
+            <p className="font-medium text-4xl">Step 2: Create an activity</p>
+            <p className="font-medium text-4xl">Step 3: Start recording</p>
           </div>
         )}
 
-        <footer>Great job buddy!</footer>
+        <footer className="text-lg">Great job buddy!</footer>
       </MainContentContainer>
     </LayoutWithSidebar>
   );
