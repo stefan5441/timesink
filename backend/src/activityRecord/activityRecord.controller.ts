@@ -48,3 +48,21 @@ export const heatmap = asyncHandler(async (req: AuthenticatedRequest, res: Respo
   const heatmap = await activityRecordService.getActivityHeatmap(req.params.activityId, userId);
   res.json(heatmap);
 });
+
+export const timeframe = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  const userId = (req as any).userId;
+  const { dateFrom, dateTill } = req.query;
+
+  if (!dateFrom || !dateTill) {
+    return res.status(400).json({ message: "dateFrom and dateTill are required" });
+  }
+
+  const total = await activityRecordService.getTimeForActivity(
+    req.params.activityId,
+    new Date(dateFrom as string),
+    new Date(dateTill as string),
+    userId
+  );
+
+  res.json({ total });
+});

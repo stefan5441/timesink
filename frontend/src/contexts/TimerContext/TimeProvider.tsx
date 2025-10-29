@@ -42,7 +42,7 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <TimerContext.Provider value={{ secondsElapsed, startTimer, stopTimer, activeActivityId }}>
+    <TimerContext.Provider value={{ secondsElapsed, startTimer, stopTimer, activeActivityId, timerRunning }}>
       {children}
     </TimerContext.Provider>
   );

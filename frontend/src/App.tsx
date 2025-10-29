@@ -7,8 +7,9 @@ import { NotFound } from "./pages/Others/NotFound";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import { Login } from "./pages/Authentication/Login";
 import { Statistics } from "./pages/Statistics/Statistics";
-import { Activities } from "./pages/Activities/Activities";
 import { TimerProvider } from "./contexts/TimerContext/TimeProvider";
+import { RecordActivity } from "./pages/RecordActivity/RecordActivity";
+import { ManageActivities } from "./pages/ManageActivities/ManageActivities";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,8 @@ function App() {
 
               {/* Protected routes */}
               <Route element={<ProtectedRoutes />}>
-                <Route path="activities" element={<Activities />} />
+                <Route path="record-activity" element={<RecordActivity />} />
+                <Route path="manage-activities" element={<ManageActivities />} />
                 <Route path="stats" element={<Statistics />} />
               </Route>
 

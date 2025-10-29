@@ -1,6 +1,6 @@
 import type { ActivityRecord } from "@prisma/client";
 import { client } from "../../auth/axiosClient";
-import type { HeatmapActivity } from "@/components/custom/ActivityHeatmap/types";
+import type { HeatmapActivity } from "@/components/ActivityHeatmap/types";
 
 type CreateActivityRecordPayload = {
   activityId: string;
@@ -22,17 +22,17 @@ export async function getActivityRecords(): Promise<ActivityRecord[]> {
 
 export async function getTotalTimeForActivity(activityId: string) {
   const res = await client.get(`activity-record/${activityId}/total-time`);
-  return res.data.totalTimeInSeconds;
+  return res.data.total;
 }
 
-export async function getTimeForActivityTimeframe(activityId: string, dateFrom: Date, dateTill: Date) {
+export async function getTimeForActivityTimeframe(activityId: string, dateFrom: string, dateTill: string) {
   const res = await client.get(`activity-record/${activityId}/timeframe`, {
     params: {
-      dateFrom: dateFrom.toISOString(),
-      dateTill: dateTill.toISOString(),
+      dateFrom,
+      dateTill,
     },
   });
-  return res.data.totalTimeInSeconds;
+  return res.data.total;
 }
 
 export async function getActivityHeatmap(activityId: string): Promise<HeatmapActivity[]> {

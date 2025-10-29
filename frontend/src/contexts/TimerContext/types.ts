@@ -3,4 +3,5 @@ export type TimerContextType = {
   startTimer: (activityId: string) => void;
   stopTimer: () => void;
   activeActivityId: string | null;
+  timerRunning: boolean;
 };

@@ -6,13 +6,13 @@ import {
   getTimeForActivityTimeframe,
   getTotalTimeForActivity,
 } from "./activityRecordServices";
-import type { HeatmapActivity } from "@/components/custom/ActivityHeatmap/types";
+import type { HeatmapActivity } from "@/components/ActivityHeatmap/types";
 
 export const activityRecordKeys = {
   all: ["activityRecords"] as const,
   totalTime: (activityId: string) => ["activityRecords", "totalTime", activityId] as const,
-  timeframeTime: (activityId: string, dateFrom: Date, dateTill: Date) =>
-    ["activityRecords", "timeframe", activityId, dateFrom.toISOString(), dateTill.toISOString()] as const,
+  timeframeTime: (activityId: string, dateFrom: string, dateTill: string) =>
+    ["activityRecords", "timeframe", activityId, dateFrom, dateTill] as const,
   heatmap: (activityId: string) => ["activityRecords", "heatmap", activityId] as const,
 };
 
@@ -28,14 +28,16 @@ export function useGetTotalTimeForActivity(activityId: string) {
     queryKey: activityRecordKeys.totalTime(activityId),
     queryFn: () => getTotalTimeForActivity(activityId),
     enabled: !!activityId,
+    retry: false,
   });
 }
 
-export function useGetActivityTimeframeTime(activityId: string, dateFrom: Date, dateTill: Date) {
+export function useGetActivityTimeframeTime(activityId: string, dateFrom: string, dateTill: string) {
   return useQuery({
     queryKey: activityRecordKeys.timeframeTime(activityId, dateFrom, dateTill),
     queryFn: () => getTimeForActivityTimeframe(activityId, dateFrom, dateTill),
     enabled: !!activityId && !!dateFrom && !!dateTill,
+    retry: false,
   });
 }
 
