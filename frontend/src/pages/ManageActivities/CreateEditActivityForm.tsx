@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Color } from "@prisma/client";
 import { textColorMap } from "@/components/utils";
 import { useActivity, useCreateActivity, useUpdateActivity } from "@/api/activity/activityQueries";
+import { LoadingOrError } from "@/components/LoadingOrError";
 
 type Props = {
   activityId?: string;
@@ -14,7 +15,7 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
   const [activityName, setActivityName] = useState<string>("");
   const [activityColor, setActivityColor] = useState<Color | "">("");
 
-  const { data: activityData } = useActivity(activityId ?? "");
+  const { data: activityData, isLoading, isError } = useActivity(activityId ?? "");
   const updateMutation = useUpdateActivity();
   const createMutation = useCreateActivity();
 
@@ -38,6 +39,10 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
       setActivityColor(activityData.color);
     }
   }, [activityData]);
+
+  if (isLoading || isError) {
+    return <LoadingOrError isError={isError} isLoading={isLoading} />;
+  }
 
   return (
     <div className="flex flex-col gap-6 ">

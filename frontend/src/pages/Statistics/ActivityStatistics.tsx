@@ -3,16 +3,28 @@ import { useGetTimeframeData } from "./useGetTimeframeData";
 import { TimeframeItem } from "./TimeframeItem";
 import { ActivityHeatmap } from "@/components/ActivityHeatmap/ActivityHeatmap";
 import { useGetActivityHeatmap } from "@/api/activityRecord/activityRecordQueries";
+import { LoadingOrError } from "@/components/LoadingOrError";
 
 type Props = {
   activity: Activity;
 };
 
 export const ActivityStatistics = ({ activity }: Props) => {
-  const { totalActivityTime, totalMonthlyActivity, totalWeeklyActivity, totalYearlyActivity } = useGetTimeframeData(
-    activity.id
-  );
-  const { data: heatmapData } = useGetActivityHeatmap(activity.id);
+  const {
+    totalActivityTime,
+    totalMonthlyActivity,
+    totalWeeklyActivity,
+    totalYearlyActivity,
+    isError: timeframeError,
+    isLoading: timeframeLoading,
+  } = useGetTimeframeData(activity.id);
+  const { data: heatmapData, isLoading: heatmapLoading, isError: heatmapError } = useGetActivityHeatmap(activity.id);
+
+  const isLoading = heatmapLoading || timeframeLoading;
+  const isError = heatmapError || timeframeError;
+  if (isLoading || isError) {
+    return <LoadingOrError isError={isError} isLoading={isLoading} />;
+  }
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-20">

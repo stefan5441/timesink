@@ -18,7 +18,7 @@ export const Statistics = () => {
 
           <div className="w-px bg-black"></div>
 
-          <div className="w-2/12 pr-8">
+          <div className="flex flex-col items-center w-2/12 min-h-0">
             <ActivityRecordHistoryList activityId={selectedActivity.id} />
           </div>
         </>

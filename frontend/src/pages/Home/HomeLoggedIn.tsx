@@ -1,12 +1,17 @@
 import { getMe } from "@/api/user/userServices";
 import { useQuery } from "@tanstack/react-query";
 import { MainContainer } from "@/components/MainContainer";
+import { Loading } from "@/components/Loading";
 
 export const HomeLoggedIn = () => {
-  const { data: userData } = useQuery({
+  const { data: userData, isLoading } = useQuery({
     queryKey: ["HomeLoggedInUser"],
     queryFn: getMe,
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <MainContainer className="flex flex-col justify-between">

@@ -36,10 +36,11 @@ export const formatDate = (date: string | Date) => {
   });
 };
 
-export const getStartOfMonth = (date = new Date()) => new Date(date.getFullYear(), date.getMonth(), 1);
+export const getStartOfMonth = (date = new Date()) => new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
 
-export const getEndOfMonth = (date = new Date()) => new Date(date.getFullYear(), date.getMonth() + 1, 1);
+export const getEndOfMonth = (date = new Date()) =>
+  new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
 
-export const getStartOfYear = (date = new Date()) => new Date(date.getFullYear(), 0, 1);
+export const getStartOfYear = (date = new Date()) => new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0);
 
-export const getEndOfYear = (date = new Date()) => new Date(date.getFullYear() + 1, 0, 1);
+export const getEndOfYear = (date = new Date()) => new Date(date.getFullYear(), 11, 31, 23, 59, 59, 999);

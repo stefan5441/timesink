@@ -1,6 +1,7 @@
 import type { Activity } from "@prisma/client";
 import { hoverTextColorMap, textColorMap } from "@/components/utils";
 import { useActivities } from "@/api/activity/activityQueries";
+import { LoadingOrError } from "@/components/LoadingOrError";
 
 type Props = {
   selectedActivity?: Activity;
@@ -8,7 +9,11 @@ type Props = {
 };
 
 export const ActivitySelectList = ({ selectedActivity, setSelectedActivity }: Props) => {
-  const { data: activitiesData } = useActivities();
+  const { data: activitiesData, isLoading, isError } = useActivities();
+
+  if (isLoading || isError) {
+    return <LoadingOrError isError={isError} isLoading={isLoading} />;
+  }
 
   return (
     <div className="flex flex-col gap-6 overflow-y-auto">

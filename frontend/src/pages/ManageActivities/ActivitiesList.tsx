@@ -1,4 +1,5 @@
 import { useActivities, useDeleteActivity } from "@/api/activity/activityQueries";
+import { LoadingOrError } from "@/components/LoadingOrError";
 import { borderColorMap } from "@/components/utils";
 
 type Props = {
@@ -6,8 +7,12 @@ type Props = {
 };
 
 export const ActivitiesList = ({ setActivityIdToEdit }: Props) => {
-  const { data: activitiesData } = useActivities();
+  const { data: activitiesData, isLoading, isError } = useActivities();
   const deleteActivityMutation = useDeleteActivity();
+
+  if (isLoading || isError) {
+    return <LoadingOrError isError={isError} isLoading={isLoading} />;
+  }
 
   return (
     <div className="flex flex-col gap-6 overflow-y-auto">

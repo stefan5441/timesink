@@ -15,7 +15,7 @@ export const ActivityHeatmap: React.FC<Props> = ({ activities, color }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col gap-6">
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {monthRanges.slice(0, halfMonthLength).map((month) => (
             <ActivityHeatmapMonth
               activities={activities}
@@ -27,7 +27,7 @@ export const ActivityHeatmap: React.FC<Props> = ({ activities, color }) => {
             />
           ))}
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {monthRanges.slice(halfMonthLength, monthRanges.length).map((month) => (
             <ActivityHeatmapMonth
               activities={activities}
