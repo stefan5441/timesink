@@ -1,22 +1,28 @@
 import type { HeatmapActivity, HeatmapCell, HeatmapMonth } from "./types";
 
 export function getMonthRanges(startDate: Date, endDate: Date): Array<HeatmapMonth> {
-  if (startDate > endDate) {
+  const normalizedStartDate = new Date(startDate);
+  normalizedStartDate.setHours(0, 0, 0, 0);
+
+  const normalizedEndDate = new Date(endDate);
+  normalizedEndDate.setHours(23, 59, 59, 999);
+
+  if (normalizedStartDate > normalizedEndDate) {
     throw new Error("startDate must be before endDate");
   }
 
   const result: Array<HeatmapMonth> = [];
-  const current = new Date(startDate);
+  const current = new Date(normalizedStartDate);
 
-  while (current <= endDate) {
+  while (current <= normalizedEndDate) {
     const year = current.getFullYear();
     const month = current.getMonth();
     const monthName = current.toLocaleString("default", { month: "long" });
 
-    const rangeStart = result.length === 0 ? new Date(startDate) : new Date(year, month, 1);
+    const rangeStart = result.length === 0 ? new Date(normalizedStartDate) : new Date(year, month, 1);
 
-    const isLastMonth = year === endDate.getFullYear() && month === endDate.getMonth();
-    const rangeEnd = isLastMonth ? new Date(endDate) : new Date(year, month + 1, 0);
+    const isLastMonth = year === normalizedEndDate.getFullYear() && month === normalizedEndDate.getMonth();
+    const rangeEnd = isLastMonth ? new Date(normalizedEndDate) : new Date(year, month + 1, 0);
 
     result.push({
       name: monthName,
@@ -35,11 +41,20 @@ export function getHeatmapMonthData(
   startDate: Date,
   endDate: Date
 ): Array<HeatmapCell> {
-  if (startDate.getFullYear() !== endDate.getFullYear() || startDate.getMonth() !== endDate.getMonth()) {
+  const normalizedStartDate = new Date(startDate);
+  normalizedStartDate.setHours(0, 0, 0, 0);
+
+  const normalizedEndDate = new Date(endDate);
+  normalizedEndDate.setHours(23, 59, 59, 999);
+
+  if (
+    normalizedStartDate.getFullYear() !== normalizedEndDate.getFullYear() ||
+    normalizedStartDate.getMonth() !== normalizedEndDate.getMonth()
+  ) {
     throw new Error("startDate and endDate must be in the same month");
   }
 
-  if (startDate > endDate) {
+  if (normalizedStartDate > normalizedEndDate) {
     throw new Error("startDate must be before endDate");
   }
 
@@ -69,10 +84,10 @@ export function getHeatmapMonthData(
     });
   }
 
-  const current = new Date(startDate);
+  const current = new Date(normalizedStartDate);
   addInvisibleCells(current.getDay());
 
-  while (current <= endDate) {
+  while (current <= normalizedEndDate) {
     const key = formatKey(current);
     const displayDate = formatDisplay(current);
 
