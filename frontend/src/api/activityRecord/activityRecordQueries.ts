@@ -3,6 +3,7 @@ import {
   createActivityRecord,
   getActivityHeatmap,
   getActivityRecords,
+  getActivityRecordsByActivityId,
   getTimeForActivityTimeframe,
   getTotalTimeForActivity,
 } from "./activityRecordServices";
@@ -10,6 +11,7 @@ import type { HeatmapActivity } from "@/components/ActivityHeatmap/types";
 
 export const activityRecordKeys = {
   all: ["activityRecords"] as const,
+  byActivity: (activityId: string) => ["activityRecords", "byActivity", activityId] as const,
   totalTime: (activityId: string) => ["activityRecords", "totalTime", activityId] as const,
   timeframeTime: (activityId: string, dateFrom: string, dateTill: string) =>
     ["activityRecords", "timeframe", activityId, dateFrom, dateTill] as const,
@@ -20,6 +22,14 @@ export function useActivityRecords() {
   return useQuery({
     queryKey: activityRecordKeys.all,
     queryFn: getActivityRecords,
+  });
+}
+
+export function useActivityRecordsByActivityId(activityId: string) {
+  return useQuery({
+    queryKey: activityRecordKeys.byActivity(activityId),
+    queryFn: () => getActivityRecordsByActivityId(activityId),
+    enabled: !!activityId,
   });
 }
 

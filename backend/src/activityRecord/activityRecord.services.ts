@@ -120,3 +120,11 @@ export async function getActivityHeatmap(activityId: string, userId: string): Pr
 
   return result;
 }
+
+export async function getActivityRecordsByActivityId(activityId: string, userId: string): Promise<ActivityRecord[]> {
+  return prisma.activityRecord.findMany({
+    where: { activityId, userId },
+    orderBy: { createdAt: "desc" },
+    include: { activity: true },
+  });
+}

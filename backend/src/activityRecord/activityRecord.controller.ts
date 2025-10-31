@@ -24,6 +24,12 @@ export const getById = asyncHandler(async (req: AuthenticatedRequest, res: Respo
   res.json(record);
 });
 
+export const getByActivityId = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  const userId = (req as any).userId;
+  const records = await activityRecordService.getActivityRecordsByActivityId(req.params.activityId, userId);
+  res.json(records);
+});
+
 export const update = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
   const userId = (req as any).userId;
   const { lengthInSeconds } = req.body;

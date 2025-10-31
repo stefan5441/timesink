@@ -2,6 +2,6 @@ type Props = {
   activityId: string;
 };
 
-export const ActivityRecordList = ({ activityId }: Props) => {
+export const ActivityRecordHistoryList = ({ activityId }: Props) => {
   return <div>{activityId}</div>;
 };

@@ -3,6 +3,7 @@ import type { Activity } from "@prisma/client";
 import { ActivityStatistics } from "./ActivityStatistics";
 import { MainContainer } from "@/components/MainContainer";
 import { ActivitySelectList } from "../RecordActivity/ActivitySelectList";
+import { ActivityRecordHistoryList } from "./ActivityRecordHistoryList";
 
 export const Statistics = () => {
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>();
@@ -18,7 +19,7 @@ export const Statistics = () => {
           <div className="w-px bg-black"></div>
 
           <div className="w-2/12 pr-8">
-            <div>tbd</div>
+            <ActivityRecordHistoryList activityId={selectedActivity.id} />
           </div>
         </>
       ) : (
