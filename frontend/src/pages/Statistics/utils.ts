@@ -28,6 +28,14 @@ export const getEndOfWeek = (date = new Date()) => {
   return d;
 };
 
+export const formatDate = (date: string | Date) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 export const getStartOfMonth = (date = new Date()) => new Date(date.getFullYear(), date.getMonth(), 1);
 
 export const getEndOfMonth = (date = new Date()) => new Date(date.getFullYear(), date.getMonth() + 1, 1);
