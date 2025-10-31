@@ -113,3 +113,20 @@ export function getHeatmapMonthData(
 
   return result;
 }
+
+export const getHalfMonthRangesLength = (monthRanges: HeatmapMonth[]) => {
+  if (monthRanges.length % 2 === 0) {
+    return monthRanges.length / 2;
+  }
+
+  const getDaysInMonth = (start: Date, end: Date) => (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+
+  const firstMonthDays = getDaysInMonth(monthRanges[0].start, monthRanges[0].end);
+  const lastMonthDays = getDaysInMonth(
+    monthRanges[monthRanges.length - 1].start,
+    monthRanges[monthRanges.length - 1].end
+  );
+
+  const halfLength = Math.floor(monthRanges.length / 2);
+  return firstMonthDays < lastMonthDays ? halfLength + 1 : halfLength;
+};
