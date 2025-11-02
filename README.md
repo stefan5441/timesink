@@ -3,8 +3,8 @@ Deploying this project was the most miserable experience of my life
 TODO:
 [DONE] !!GetActivityRecords for specific activity id
 [DONE] Rethink Statistics page, make heatmap take 80% of screen instead of half
-Loading state
-Confirmation on delete activity
+[DONE] Loading state
+[DONE] Confirmation on delete activity
 Dark mode
 Responsiveness for mobile
 re-do activity heatmap
