@@ -8,6 +8,7 @@ import ProtectedRoutes from "./auth/ProtectedRoutes";
 import { Login } from "./pages/Authentication/Login";
 import { Statistics } from "./pages/Statistics/Statistics";
 import { TimerProvider } from "./contexts/TimerContext/TimeProvider";
+import { ThemeProvider } from "./contexts/ThemeContext/ThemeProvider";
 import { RecordActivity } from "./pages/RecordActivity/RecordActivity";
 import { ManageActivities } from "./pages/ManageActivities/ManageActivities";
 
@@ -18,21 +19,22 @@ function App() {
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <TimerProvider>
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="login" element={<Login />} />
+          <ThemeProvider>
+            <TimerProvider>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="login" element={<Login />} />
 
-              {/* Protected routes */}
-              <Route element={<ProtectedRoutes />}>
-                <Route path="record-activity" element={<RecordActivity />} />
-                <Route path="manage-activities" element={<ManageActivities />} />
-                <Route path="stats" element={<Statistics />} />
-              </Route>
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="record-activity" element={<RecordActivity />} />
+                  <Route path="manage-activities" element={<ManageActivities />} />
+                  <Route path="stats" element={<Statistics />} />
+                </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </TimerProvider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </TimerProvider>
+          </ThemeProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </GoogleOAuthProvider>

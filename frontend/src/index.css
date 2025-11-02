@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @theme {
+  --color-background: #ffffff;
   --color-text: #000000;
   --color-primary: #87cefa;
   --color-danger: #e63946;
@@ -10,6 +11,19 @@
 @layer base {
   html {
     font-family: "Quicksand", system-ui, sans-serif;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark {
+    --color-background: #000000;
+    --color-text: #ffffff;
+    --color-primary: #5fa8d3;
+    --color-danger: #ff6b6b;
   }
 }
 

@@ -12,7 +12,7 @@ export const ManageActivities = () => {
         <ActivitiesList setActivityIdToEdit={setActivityIdToEdit} />
       </div>
 
-      <div className="w-px bg-black"></div>
+      <div className="w-px bg-text"></div>
 
       <div className="w-4/12 pl-8">
         <CreateEditActivityForm activityId={activityIdToEdit} onCancel={() => setActivityIdToEdit(undefined)} />

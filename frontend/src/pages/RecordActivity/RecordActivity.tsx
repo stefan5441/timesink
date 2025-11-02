@@ -13,7 +13,7 @@ export const RecordActivity = () => {
         <ActivitySelectList setSelectedActivity={setSelectedActivity} selectedActivity={selectedActivity} />
       </div>
 
-      <div className="w-px bg-black"></div>
+      <div className="w-px bg-text"></div>
 
       <div className="w-9/12 pl-8">
         <SelectedActivity activity={selectedActivity} />

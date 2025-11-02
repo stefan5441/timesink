@@ -4,6 +4,7 @@ import { useLogout } from "@/api/auth/authQueries";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTimer } from "@/contexts/TimerContext/useTimer";
 import { useActivity } from "@/api/activity/activityQueries";
+import { ThemeToggle } from "../ThemeToggle";
 
 type SelectedTab = "home" | "record-activity" | "manage-activities" | "stats";
 
@@ -49,12 +50,16 @@ export const MainNavBar = () => {
           statistics
         </MainNavBarItem>
       </div>
-      <button
-        onClick={() => logout.mutate()}
-        className="text-text text-2xl hover:text-danger transition-all duration-150"
-      >
-        log out
-      </button>
+
+      <div className="flex gap-8">
+        <ThemeToggle />
+        <button
+          onClick={() => logout.mutate()}
+          className="text-text text-2xl hover:text-danger transition-all duration-150"
+        >
+          log out
+        </button>
+      </div>
     </div>
   );
 };

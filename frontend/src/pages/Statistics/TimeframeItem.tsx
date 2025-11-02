@@ -8,8 +8,8 @@ type Props = {
 export const TimeframeItem = ({ label, timeInSeconds }: Props) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-4xl">{formatTime(timeInSeconds)}</div>
-      <div className="text-xl">{label}</div>
+      <div className="text-5xl">{formatTime(timeInSeconds)}</div>
+      <div className="text-2xl">{label}</div>
     </div>
   );
 };

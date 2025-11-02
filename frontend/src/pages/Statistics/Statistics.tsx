@@ -16,7 +16,7 @@ export const Statistics = () => {
             <ActivityStatistics activity={selectedActivity} />
           </div>
 
-          <div className="w-px bg-black"></div>
+          <div className="w-px bg-text"></div>
 
           <div className="flex flex-col items-center w-2/12 min-h-0">
             <ActivityRecordHistoryList activityId={selectedActivity.id} />
@@ -28,7 +28,7 @@ export const Statistics = () => {
         </div>
       )}
 
-      <div className="w-px bg-black"></div>
+      <div className="w-px bg-text"></div>
 
       <div className="w-3/12 pl-8 flex flex-col min-h-0">
         <ActivitySelectList setSelectedActivity={setSelectedActivity} selectedActivity={selectedActivity} />
