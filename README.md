@@ -5,7 +5,8 @@ TODO:
 [DONE] Rethink Statistics page, make heatmap take 80% of screen instead of half
 [DONE] Loading state
 [DONE] Confirmation on delete activity
-Dark mode
+[DONE] Dark mode
 Responsiveness for mobile
 re-do activity heatmap
 re-design front page, do half and half screen, one half login other half video demo of site
+re-do css color variables, add different variables for separators etc.
