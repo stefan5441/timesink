@@ -7,6 +7,7 @@ TODO:
 [DONE] Confirmation on delete activity
 [DONE] Dark mode
 Responsiveness for mobile
+!!Invent a way to record sessions when mobile is locked, probably track start time
 re-do activity heatmap
 re-design front page, do half and half screen, one half login other half video demo of site
 re-do css color variables, add different variables for separators etc.

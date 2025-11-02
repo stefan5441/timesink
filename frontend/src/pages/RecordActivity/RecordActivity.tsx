@@ -8,14 +8,12 @@ export const RecordActivity = () => {
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>();
 
   return (
-    <MainContainer className="flex h-full min-h-0">
-      <div className="w-3/12 pr-8 flex flex-col min-h-0">
+    <MainContainer className="flex h-full min-h-0 flex-col-reverse md:flex-row">
+      <div className="flex flex-col min-h-0 h-3/12 md:h-auto md:w-3/12 md:pr-8">
         <ActivitySelectList setSelectedActivity={setSelectedActivity} selectedActivity={selectedActivity} />
       </div>
-
-      <div className="w-px bg-text"></div>
-
-      <div className="w-9/12 pl-8">
+      <div className="bg-text h-px md:h-auto md:w-px"></div>
+      <div className="h-9/12 md:h-auto md:w-9/12 md:pl-8">
         <SelectedActivity activity={selectedActivity} />
       </div>
     </MainContainer>

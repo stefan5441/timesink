@@ -16,12 +16,12 @@ export const ActivitySelectList = ({ selectedActivity, setSelectedActivity }: Pr
   }
 
   return (
-    <div className="flex flex-col gap-6 overflow-y-auto">
+    <div className="flex flex-col gap-2 pt-8 md:pt-0 md:gap-6 overflow-y-auto">
       {activitiesData &&
         activitiesData.map((a) => (
           <button
             onClick={() => setSelectedActivity(a)}
-            className={`text-4xl ${hoverTextColorMap[a.color]} ${
+            className={`text-2xl md:text-4xl ${hoverTextColorMap[a.color]} ${
               selectedActivity?.id === a.id ? textColorMap[a.color] : ""
             }`}
             key={a.id}

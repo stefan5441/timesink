@@ -15,9 +15,9 @@ export const HomeLoggedIn = () => {
 
   return (
     <MainContainer className="flex flex-col justify-between">
-      <h2 className="text-3xl">Welcome, {userData?.username}</h2>
+      <h2 className="text-xl md:text-3xl">Welcome, {userData?.username}</h2>
 
-      <div className="flex flex-col gap-6 text-3xl font-bold">
+      <div className="flex flex-col gap-6 text-lg md:text-3xl font-bold">
         <p>
           The main functionality of this app is to record your time spent on a list of activities you select, and store
           that information for you to reference back to.
@@ -29,7 +29,7 @@ export const HomeLoggedIn = () => {
         <p>The statistics tab shows time spent on your activities, and some dashboards to visualise them better.</p>
       </div>
 
-      <p className="underline font-medium">
+      <p className="underline text-sm md:text-lg font-medium">
         *Note, while recording an activity you can refresh your browser and the activity recording won't stop, however
         it will stop if you close the browser. You must keep the browser (not the tab) open at all times. Have fun!
       </p>

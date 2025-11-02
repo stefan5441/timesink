@@ -1,12 +1,12 @@
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
-type MainNavBarItemProps = PropsWithChildren<
+type DesktopNavBarItemProps = PropsWithChildren<
   ButtonHTMLAttributes<HTMLButtonElement> & {
     active?: boolean;
   }
 >;
 
-export const MainNavBarItem = ({ children, active = false, ...props }: MainNavBarItemProps) => {
+export const DesktopNavBarItem = ({ children, active = false, ...props }: DesktopNavBarItemProps) => {
   return (
     <button
       className={`text-3xl hover:text-primary transition-all duration-150 ${active ? "text-primary" : ""}`}

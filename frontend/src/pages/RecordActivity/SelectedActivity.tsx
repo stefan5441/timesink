@@ -17,7 +17,6 @@ export const SelectedActivity = ({ activity }: Props) => {
 
   const handleStopTimer = () => {
     if (!activeActivity?.id) return;
-
     createActivityRecordMutation.mutate({ activityId: activeActivity.id, lengthInSeconds: secondsElapsed });
     stopTimer();
   };
@@ -27,23 +26,31 @@ export const SelectedActivity = ({ activity }: Props) => {
   }
 
   return (
-    <div className="h-full flex flex-col justify-center items-center gap-6">
+    <div className="h-full flex flex-col justify-center items-center gap-4 pb-8 md:pb-0 md:gap-6">
       {timerRunning && activeActivity ? (
         <>
-          <div className={`text-7xl font-bold ${textColorMap[activeActivity.color]}`}>{formatTime(secondsElapsed)}</div>
-          <button onClick={handleStopTimer} className={`text-5xl ${hoverTextColorMap[activeActivity.color]}`}>
-            {`stop ${activeActivity.name}`}
+          <div className={`text-5xl md:text-7xl font-bold ${textColorMap[activeActivity.color]}`}>
+            {formatTime(secondsElapsed)}
+          </div>
+          <button
+            onClick={handleStopTimer}
+            className={`text-3xl md:text-5xl ${hoverTextColorMap[activeActivity.color]}`}
+          >
+            stop {activeActivity.name}
           </button>
         </>
       ) : activity ? (
         <>
-          <div className={`text-7xl font-bold ${textColorMap[activity.color]}`}>{activity.name}</div>
-          <button onClick={() => startTimer(activity.id)} className={`text-5xl ${hoverTextColorMap[activity.color]}`}>
+          <div className={`text-5xl font-bold md:text-7xl ${textColorMap[activity.color]}`}>{activity.name}</div>
+          <button
+            onClick={() => startTimer(activity.id)}
+            className={`text-3xl md:text-5xl ${hoverTextColorMap[activity.color]}`}
+          >
             start
           </button>
         </>
       ) : (
-        <div className="text-5xl">select an activity</div>
+        <div className="text-3xl md:text-5xl">select an activity</div>
       )}
     </div>
   );
