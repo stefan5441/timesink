@@ -25,23 +25,25 @@ export const ActivityHeatmapMonth: React.FC<Props> = ({
   const cellColors = cellColorsMap[color];
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="grid grid-rows-7 grid-flow-col gap-1">
+    <div className="flex flex-col items-center md:gap-2">
+      <div className="gap-0.5 md:gap-1 grid grid-rows-7 grid-flow-col">
         {heatmapMonthData.map((a, i) => {
           if (a === "invisible") {
-            return <div key={i} className="w-5 h-5 bg-transparent rounded-xs" />;
+            return <div key={i} className="bg-transparent md:rounded-xs w-1.5 md:w-5 h-1.5 md:h-5" />;
           }
           return (
             <ActivityHeatmapTooltip key={i} content={`${formatTotalTime(a.count)} of time sunk on ${a.date}`}>
               <div
                 key={i}
-                className={`w-5 h-5 hover:border-2 hover:border-sky-100 rounded-xs ${cellColors[a.level]}`}
+                className={`h-1.5 w-1.5 md:w-5 md:h-5 hover:border-2 hover:border-sky-100 md:rounded-xs ${
+                  cellColors[a.level]
+                }`}
               />
             </ActivityHeatmapTooltip>
           );
         })}
       </div>
-      {columnCount >= 3 && <div className="text-lg">{monthName.slice(0, 3)}</div>}
+      {columnCount >= 3 && <div className="text-xs md:text-lg">{monthName.slice(0, 3)}</div>}
     </div>
   );
 };

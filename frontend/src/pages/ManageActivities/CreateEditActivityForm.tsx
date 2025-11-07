@@ -45,8 +45,8 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
   }
 
   return (
-    <div className="flex flex-col gap-6 ">
-      <h3 className="text-4xl">{isEditMode ? "edit activity" : "create activity"}</h3>
+    <div className="flex flex-col gap-6">
+      <h3 className="text-3xl md:text-4xl">{isEditMode ? "edit activity" : "create activity"}</h3>
 
       <div className="flex flex-col gap-1">
         <label htmlFor="activityName" className="text-xl">
@@ -58,8 +58,7 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
           maxLength={50}
           value={activityName}
           onChange={(e) => setActivityName(e.target.value)}
-          className="text-2xl px-2 py-1 rounded ring-1 ring-border hover:ring-2 
-          hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary"
+          className="px-2 py-1 ring-border rounded focus:outline-none ring-1 hover:ring-2 hover:ring-primary focus:ring-2 focus:ring-primary md:text-2xl"
         />
       </div>
 
@@ -71,8 +70,7 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
           id="activityColor"
           value={activityColor}
           onChange={(e) => setActivityColor(e.target.value as Color)}
-          className="text-2xl px-2 py-1 rounded ring-1 ring-border hover:ring-2 
-          hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary appearance-none"
+          className="px-2 py-1 ring-border rounded focus:outline-none ring-1 hover:ring-2 hover:ring-primary focus:ring-2 focus:ring-primary md:text-2xl appearance-none"
         >
           <option value="" disabled>
             Select a color...
@@ -89,8 +87,7 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
         <button
           onClick={handleButtonClick}
           disabled={!activityName || !activityColor}
-          className="w-full text-2xl px-2 py-1 rounded ring-1 ring-border hover:ring-2 
-          hover:ring-primary"
+          className="px-2 py-1 ring-border rounded ring-1 hover:ring-2 hover:ring-primary w-full md:text-2xl"
         >
           save
         </button>
@@ -101,8 +98,7 @@ export const CreateEditActivityForm = ({ activityId, onCancel }: Props) => {
               setActivityColor("");
               onCancel();
             }}
-            className="w-full text-2xl px-2 py-1 rounded ring-1 ring-border hover:ring-2 
-          hover:ring-danger"
+            className="px-2 py-1 ring-border rounded ring-1 hover:ring-2 hover:ring-danger w-full md:text-2xl"
           >
             cancel
           </button>

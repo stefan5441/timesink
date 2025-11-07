@@ -27,8 +27,8 @@ export const ActivityStatistics = ({ activity }: Props) => {
   }
 
   return (
-    <div className="h-full flex flex-col justify-center items-center gap-20">
-      <div className="flex gap-10">
+    <div className="flex flex-col justify-center items-center gap-10 md:gap-20 h-full">
+      <div className="flex gap-4 md:gap-10">
         <TimeframeItem timeInSeconds={totalActivityTime} label="all time" />
         <TimeframeItem timeInSeconds={totalYearlyActivity} label="this year" />
         <TimeframeItem timeInSeconds={totalMonthlyActivity} label="this month" />

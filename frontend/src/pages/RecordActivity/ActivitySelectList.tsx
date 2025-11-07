@@ -16,7 +16,7 @@ export const ActivitySelectList = ({ selectedActivity, setSelectedActivity }: Pr
   }
 
   return (
-    <div className="flex flex-col gap-2 pt-8 md:pt-0 md:gap-6 overflow-y-auto">
+    <div className="flex flex-col gap-2 md:gap-6 pt-8 md:pt-0 overflow-y-auto">
       {activitiesData &&
         activitiesData.map((a) => (
           <button

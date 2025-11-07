@@ -43,32 +43,35 @@ export const ActivitiesList = ({ setActivityIdToEdit }: Props) => {
         activitiesData.length > 0 &&
         activitiesData.map((a) => (
           <div className="flex justify-between items-center" key={a.id}>
-            <div className={`text-4xl border-b-4 ${borderColorMap[a.color]}`}>{a.name}</div>
+            <div className={`text-2xl md:text-4xl border-b-4 ${borderColorMap[a.color]}`}>{a.name}</div>
             {confirmDeleteId === a.id ? (
-              <div className="flex gap-4 items-center">
-                <span className="text-3xl">are you sure?</span>
+              <div className="flex items-center gap-1 md:gap-4">
+                <span className="text-xl md:text-3xl">are you sure?</span>
                 <button
-                  className="text-3xl hover:text-primary transition-all duration-150"
+                  className="hover:text-primary text-xl md:*:text-3xl transition-all duration-150"
                   onClick={() => handleDelete(a.id)}
                 >
                   yes
                 </button>
-                <span className="text-3xl">/</span>
-                <button className="text-3xl hover:text-danger transition-all duration-150" onClick={handleCancelDelete}>
+                <span className="text-xl md:text-3xl">/</span>
+                <button
+                  className="hover:text-danger text-xl md:text-3xl transition-all duration-150"
+                  onClick={handleCancelDelete}
+                >
                   no
                 </button>
               </div>
             ) : (
               <div className="flex gap-4">
                 <button
-                  className="text-3xl hover:text-primary transition-all duration-150"
+                  className="hover:text-primary text-xl md:text-3xl transition-all duration-150"
                   onClick={() => handleEdit(a.id)}
                 >
                   edit
                 </button>
                 <button
                   onClick={() => handleDeleteClick(a.id)}
-                  className="text-3xl hover:text-danger transition-all duration-150"
+                  className="hover:text-danger text-xl md:text-3xl transition-all duration-150"
                 >
                   delete
                 </button>
